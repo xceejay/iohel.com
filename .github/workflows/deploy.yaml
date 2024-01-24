@@ -16,7 +16,7 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
-          source: "public"
+          source: .
           target: "/var/www/iohel.com"
           rm: true
 
