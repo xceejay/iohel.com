@@ -27,4 +27,4 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
-          script: cd /var/www/iohel.com &&  hugo
+          script: cd /var/www/iohel.com && git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 &&  hugo
