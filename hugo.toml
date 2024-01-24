@@ -1,6 +1,6 @@
 
 baseURL = "https://iohel.com/"
-title = "PaperMod"
+title = "joel's blog"
 paginate = 5
 theme = "PaperMod"
 enableInlineShortcodes = true
@@ -149,28 +149,28 @@ images = [ "images/papermod-cover.png" ]
     url = "tags"
 
   [params.homeInfoParams]
-  Title = "PaperMod's Demo"
+  Title = "hey, i'm joel amoako👋"
   Content = """
-👋 Welcome to demo page of Hugo's theme PaperMod!
-- **PaperMod**  is designed to be clean and simple but fast and responsive theme with useful feature-set that enhances UX.
-- Feel free to show your support by giving us a star 🌟 on GitHub and sharing with your friends and social media .
-- PaperMod is based on theme [Paper](https://github.com/nanxiaobei/hugo-paper/tree/4330c8b12aa48bfdecbcad6ad66145f679a430b3).
+ welcome to my personal blog where i write about anything.🙂
+- In my career i have worked as a devops engineer☁️, software engineer🔨.
+- I love being an entepreneur and i do gardening🌴 as a hobby. 
+- I currently work as as a developer support engineer at pawaPay, where i help our developer community build their solutions with pawaPay.
 """
 
   [[params.socialIcons]]
   name = "github"
   title = "View Source on Github"
-  url = "https://github.com/adityatelange/hugo-PaperMod"
+  url = "https://github.com/xceejay"
 
-  [[params.socialIcons]]
-  name = "Discord"
-  title = "Join discord community"
-  url = "https://discord.gg/ahpmTvhVmp"
+  # [[params.socialIcons]]
+  # name = "Discord"
+  # title = "Join discord community"
+  # url = "https://discord.gg/ahpmTvhVmp"
 
   [[params.socialIcons]]
   name = "X"
   title = "Share PaperMod on X/Twitter"
-  url = "https://x.com/intent/tweet/?text=Checkout%20Hugo%20PaperMod%20%E2%9C%A8%0AA%20fast,%20clean,%20responsive%20Hugo%20theme.&url=https://github.com/adityatelange/hugo-PaperMod&hashtags=Hugo,PaperMod"
+  url = "https://twitter.com/jkamoako"
 
   [[params.socialIcons]]
   name = "KoFi"
