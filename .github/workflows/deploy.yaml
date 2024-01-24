@@ -9,17 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Copy repository contents via scp
-        uses: appleboy/scp-action@master
-        with:
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: ${{ secrets.PORT }}
-          KEY: ${{ secrets.SSHKEY }}
-          source: "."
-          target: "/var/www/ekasomani.com"
-          rm: true
-
       - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
@@ -27,4 +16,15 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
-          script: chmod +x "/var/www/ekasomani.com/deploy_scripts/deploy.sh" && bash -c "/var/www/ekasomani.com/deploy_scripts/deploy.sh" && echo "Successful Deployment!!!!"
+          script: hugo
+
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        with:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          source: "public"
+          target: "/var/www/iohel.com"
+          rm: true
