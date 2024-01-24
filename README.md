@@ -1,2 +1,2 @@
 # iohel.com
-My Personal Blog
+My Personal Website and Blog
