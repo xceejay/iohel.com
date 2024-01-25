@@ -151,9 +151,9 @@ images = [ "images/papermod-cover.png" ]
   [params.homeInfoParams]
   Title = "hey, i'm joel amoako👋"
   Content = """
- welcome to my **personal blog** where i write about anything.🙂
+ Welcome to my **personal blog** where i write about anything.🙂
 - In my career i have worked as a **devops** engineer☁️ & **software** engineer🔨.
-- I love being an entepreneur💡 and i do **gardening**🌴 as a hobby. 
+- I love being an **entrepreneur**💡 and i do **gardening**🌴 as a hobby. 
 - In my position as a Developer Support Engineer at {{< inTextImg height="16" url="https://email-content.pawapay.io/logo.png" >}}, my primary responsibility is to help developers seamlessly integrate our platform into their applications.
 
 
