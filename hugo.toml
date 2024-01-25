@@ -154,7 +154,9 @@ images = [ "images/papermod-cover.png" ]
  welcome to my **personal blog** where i write about anything.🙂
 - In my career i have worked as a **devops** engineer☁️ & **software** engineer🔨.
 - I love being an entepreneur💡 and i do **gardening**🌴 as a hobby. 
-- I currently work as as a **developer support engineer**👨‍💻 at **pawaPay**, where i help our developer community build their solutions with **pawaPay**.
+- In my position as a Developer Support Engineer at {{< inTextImg height="16" url="https://email-content.pawapay.io/logo.png" >}}, my primary responsibility is to help developers seamlessly integrate our platform into their applications.
+
+
 """
 
   [[params.socialIcons]]
