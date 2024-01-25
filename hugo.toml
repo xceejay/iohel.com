@@ -43,84 +43,84 @@ weight = 10
 name = "WiKi"
 url = "https://iohel.com/"
 
-[languages.fr]
-languageName = ":fr:"
-weight = 2
-title = "PaperModL2"
+# [languages.fr]
+# languageName = ":fr:"
+# weight = 2
+# title = "PaperModL2"
 
-  [languages.fr.taxonomies]
-  category = "FRcategories"
-  tag = "FRtags"
-  series = "FRseries"
+#   [languages.fr.taxonomies]
+#   category = "FRcategories"
+#   tag = "FRtags"
+#   series = "FRseries"
 
-[[languages.fr.menu.main]]
-name = "Archive"
-url = "archives/"
-weight = 5
+# [[languages.fr.menu.main]]
+# name = "Archive"
+# url = "archives/"
+# weight = 5
 
-[[languages.fr.menu.main]]
-name = "FRTags"
-url = "frtags"
-weight = 10
+# [[languages.fr.menu.main]]
+# name = "FRTags"
+# url = "frtags"
+# weight = 10
 
-[[languages.fr.menu.main]]
-name = "FRCategories"
-url = "frcategories"
-weight = 10
+# [[languages.fr.menu.main]]
+# name = "FRCategories"
+# url = "frcategories"
+# weight = 10
 
-[[languages.fr.menu.main]]
-name = "FRSeries"
-url = "frseries"
-weight = 10
+# [[languages.fr.menu.main]]
+# name = "FRSeries"
+# url = "frseries"
+# weight = 10
 
-[[languages.fr.menu.main]]
-name = "NullLink"
-url = "#"
+# [[languages.fr.menu.main]]
+# name = "NullLink"
+# url = "#"
 
-  [languages.fr.params]
-  languageAltTitle = "French"
+#   [languages.fr.params]
+#   languageAltTitle = "French"
 
-    [languages.fr.params.profileMode]
-    enabled = true
-    title = "PaperMod"
-    imageUrl = "https://raw.githubusercontent.com/googlefonts/noto-emoji/master/svg/emoji_u1f9d1_1f3fb_200d_1f4bb.svg"
-    imageTitle = "ProfileMode image"
-    subtitle = "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
+#     [languages.fr.params.profileMode]
+#     enabled = true
+#     title = "PaperMod"
+#     imageUrl = "https://raw.githubusercontent.com/googlefonts/noto-emoji/master/svg/emoji_u1f9d1_1f3fb_200d_1f4bb.svg"
+#     imageTitle = "ProfileMode image"
+#     subtitle = "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
 
-      [[languages.fr.params.profileMode.buttons]]
-      name = "Blog"
-      url = "posts"
+#       [[languages.fr.params.profileMode.buttons]]
+#       name = "Blog"
+#       url = "posts"
 
-      [[languages.fr.params.profileMode.buttons]]
-      name = "Profile Mode"
-      url = "https://iohel.com/Features#profile-mode"
+#       [[languages.fr.params.profileMode.buttons]]
+#       name = "Profile Mode"
+#       url = "https://iohel.com/Features#profile-mode"
 
-[languages.fa]
-languagedirection = "rtl"
-weight = 3
-title = "PaperMod RTL"
+# [languages.fa]
+# languagedirection = "rtl"
+# weight = 3
+# title = "PaperMod RTL"
 
-  [languages.fa.taxonomies]
-  category = "FAcategories"
-  tag = "FAtags"
-  series = "FAseries"
+#   [languages.fa.taxonomies]
+#   category = "FAcategories"
+#   tag = "FAtags"
+#   series = "FAseries"
 
-[[languages.fa.menu.main]]
-name = "FATags"
-url = "fatags"
-weight = 10
+# [[languages.fa.menu.main]]
+# name = "FATags"
+# url = "fatags"
+# weight = 10
 
-[languages.fa.params.homeInfoParams]
-Title = "Hi there 👋"
-Content = "Welcome to RTL layout"
+# [languages.fa.params.homeInfoParams]
+# Title = "Hi there 👋"
+# Content = "Welcome to RTL layout"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON" ]
 
 [params]
 env = "production"
-description = "Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"
-author = "Theme PaperMod"
+description = "joel's blog - https://iohel.com"
+author = "Joel Amoako"
 defaultTheme = "auto"
 ShowShareButtons = true
 ShowReadingTime = true
@@ -134,27 +134,27 @@ ShowPageNums = true
 ShowToc = true
 images = [ "images/papermod-cover.png" ]
 
-  [params.profileMode]
-  enabled = false
-  title = "PaperMod"
-  imageUrl = "#"
-  imageTitle = "my image"
+  # [params.profileMode]
+  # enabled = false
+  # title = "PaperMod"
+  # imageUrl = "#"
+  # imageTitle = "my image"
 
-    [[params.profileMode.buttons]]
-    name = "Archives"
-    url = "archives"
+  #   [[params.profileMode.buttons]]
+  #   name = "Archives"
+  #   url = "archives"
 
-    [[params.profileMode.buttons]]
-    name = "Tags"
-    url = "tags"
+  #   [[params.profileMode.buttons]]
+  #   name = "Tags"
+  #   url = "tags"
 
   [params.homeInfoParams]
   Title = "hey, i'm joel amoako👋"
   Content = """
- welcome to my personal blog where i write about anything.🙂
-- In my career i have worked as a devops engineer☁️, software engineer🔨.
-- I love being an entepreneur and i do gardening🌴 as a hobby. 
-- I currently work as as a developer support engineer at pawaPay, where i help our developer community build their solutions with pawaPay.
+ welcome to my **personal blog** where i write about anything.🙂
+- In my career i have worked as a **devops** engineer☁️ & **software** engineer🔨.
+- I love being an entepreneur🏭 and i do **gardening**🌴 as a hobby. 
+- I currently work as as a **developer support engineer**👨‍💻 at **pawaPay**, where i help our developer community build their solutions with **pawaPay**.
 """
 
   [[params.socialIcons]]
@@ -173,12 +173,12 @@ images = [ "images/papermod-cover.png" ]
   url = "https://twitter.com/jkamoako"
 
   [[params.socialIcons]]
-  name = "KoFi"
-  title = "Buy me a Ko-Fi :)"
-  url = "https://ko-fi.com/adityatelange"
+  name = "Email"
+  title = "Send me an Email"
+  url = "mailto:joelkofiamoako@protonmail.com"
 
   [params.editPost]
-  URL = "https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content"
+  URL = "https://iohel.com/content"
   Text = "Suggest Changes"
   appendFilePath = true
 
