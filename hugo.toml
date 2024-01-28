@@ -132,7 +132,7 @@ ShowRssButtonInSectionTermList = true
 ShowAllPagesInArchive = true
 ShowPageNums = true
 ShowToc = true
-images = [ "images/papermod-cover.png" ]
+images = [ "images/joel-amoako-cover.png" ]
 
   [params.profileMode]
   enabled = false
