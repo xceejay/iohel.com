@@ -6,7 +6,7 @@ description: "Introduction to my blog"
 summary: "Introduction to my personal blog and the reason I created it"
 tags: ["general"]
 categories: ["general"]
-series: ["Themes Guide"]
+series: ["Introduction"]
 ShowToc: true
 TocOpen: true
 ---
