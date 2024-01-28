@@ -180,7 +180,7 @@ images = [ "images/papermod-cover.png" ]
   url = "mailto:joelkofiamoako@protonmail.com"
 
   [params.editPost]
-  URL = "https://iohel.com/content"
+  URL = "https://github.com/xceejay/iohel.com/tree/main/content"
   Text = "Suggest Changes"
   appendFilePath = true
 
