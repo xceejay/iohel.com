@@ -10,7 +10,7 @@ buildFuture = false
 buildExpired = false
 enableEmoji = true
 pygmentsUseClasses = true
-mainsections = [ "posts", "papermod" ]
+mainsections = [ "posts" ]
 
 [minify]
 disableXML = true
@@ -186,6 +186,7 @@ images = [ "images/joel-amoako-cover.png" ]
 
   [params.assets]
   disableHLJS = true
+  favicon = "/assets/favicon.ico"
 
 [markup.goldmark.renderer]
 unsafe = true
