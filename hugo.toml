@@ -134,19 +134,19 @@ ShowPageNums = true
 ShowToc = true
 images = [ "images/papermod-cover.png" ]
 
-  # [params.profileMode]
-  # enabled = false
-  # title = "PaperMod"
-  # imageUrl = "#"
-  # imageTitle = "my image"
+  [params.profileMode]
+  enabled = false
+  title = "PaperMod"
+  imageUrl = "#"
+  imageTitle = "my image"
 
-  #   [[params.profileMode.buttons]]
-  #   name = "Archives"
-  #   url = "archives"
+    [[params.profileMode.buttons]]
+    name = "Archives"
+    url = "archives"
 
-  #   [[params.profileMode.buttons]]
-  #   name = "Tags"
-  #   url = "tags"
+    [[params.profileMode.buttons]]
+    name = "Tags"
+    url = "tags"
 
   [params.homeInfoParams]
   Title = "hey, i'm joel amoako👋"
