@@ -3,7 +3,7 @@
 baseURL: "https://iohel.com/"
 title: joel's blog
 paginate: 5
-theme: [hugo-PaperMod]
+theme: [hugo-PaperModX]
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
