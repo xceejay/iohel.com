@@ -1,11 +1,11 @@
 ---
 author: ["Joel Amoako"]
-title: "Introduction"
+title: "Introduction to joel's blog"
 date: "2024-01-28"
 description: "Introduction to my blog"
 summary: "Introduction to my personal blog and the reason I created it"
-tags: ["markdown", "syntax", "code", "gist"]
-categories: ["themes", "syntax"]
+tags: ["general"]
+categories: ["general"]
 series: ["Themes Guide"]
 ShowToc: true
 TocOpen: true

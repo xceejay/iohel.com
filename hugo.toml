@@ -136,7 +136,7 @@ images = [ "images/papermod-cover.png" ]
 
   [params.profileMode]
   enabled = false
-  title = "PaperMod"
+  title = "Joel Image"
   imageUrl = "#"
   imageTitle = "my image"
 
