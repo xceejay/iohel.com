@@ -1,7 +1,7 @@
 {
-  "name": "iohel.com",
+  "name": "cvfolio",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,10 +9,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.5",
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.6.0",
-    "astro": "^5.13.9",
-    "sharp": "^0.34.3"
+    "@astrojs/mdx": "4.3.5",
+    "@astrojs/react": "4.3.1",
+    "@astrojs/sitemap": "3.5.1",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "astro": "5.13.6",
+    "lucide-react": "^0.519.0",
+    "mdast-util-to-string": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reading-time": "^1.5.0",
+    "tailwindcss": "^4.1.10"
   }
 }

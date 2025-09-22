@@ -1,49 +1,96 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getEntry, getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import Author from '@/components/ui/Author.astro';
+import { DEFAULT_CONFIGURATION } from '@/lib/constants';
+import WorkExperience from '@/components/ui/WorkExperience.astro';
+import Talk from '@/components/ui/Talk.astro';
+import { sortJobsByDate } from '@/lib/utils';
+
+const entry = await getEntry('pages', 'homepage');
+
+if (!entry) {
+  throw new Error('Homepage entry not found');
+}
+
+const { Content } = await render(entry);
+
+const links = await getCollection('links');
+const jobs = await getCollection('jobs');
+const sortedJobs = sortJobsByDate(jobs);
+const talks = await getCollection('talks');
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout seo={entry.data.seo}>
+  <Container as="section" class="py-6">
+    <Author {...DEFAULT_CONFIGURATION.author} />
+  </Container>
+
+  <Container as="section" class="py-6">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center">
+        <span class="text-headings">About</span>
+      </div>
+      <div class="prose dark:prose-invert">
+        <Content />
+      </div>
+    </div>
+  </Container>
+  {
+    links.length > 0 && (
+      <Container as="section" class="py-8">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Contact</span>
+          <ul class="flex flex-col gap-3">
+            {links.map((link) => (
+              <li class="py-0.5">
+                <div class="flex items-center gap-5">
+                  <span class="min-w-28 text-muted-foreground">
+                    {link.data.label}
+                  </span>
+                  <a
+                    class="text-headings font-medium"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={link.data.url}
+                  >
+                    {link.data.name}
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    sortedJobs.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Work Experience</span>
+          <ul class="flex flex-col gap-8">
+            {sortedJobs.map((job) => (
+              <WorkExperience entry={job} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+  {
+    talks.length > 0 && (
+      <Container as="section" class="py-6">
+        <div class="flex flex-col gap-5">
+          <span class="text-headings">Speaking</span>
+          <ul class="flex flex-col gap-8">
+            {talks.map((talk) => (
+              <Talk entry={talk} />
+            ))}
+          </ul>
+        </div>
+      </Container>
+    )
+  }
+</BaseLayout>
