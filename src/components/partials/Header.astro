@@ -11,10 +11,10 @@ const isPhotographyPage = pathname.startsWith("/photography");
 ---
 <Container
   as="header"
-  class="w-full max-w-full flex justify-center items-center"
+  class="w-full max-w-full flex justify-center items-center "
 >
   <div
-    class="w-max fixed top-0 mt-2 bg-muted-foreground/40 backdrop-blur-md  rounded-full p-2 z-50"
+    class="w-max fixed top-0 mt-2   bg-background  p-2 z-50"
   >
     <nav class="flex items-center">
       <ul class="flex items-center gap-0.5">
@@ -22,9 +22,9 @@ const isPhotographyPage = pathname.startsWith("/photography");
           <a
             href="/"
             class:list={[
-              "font-medium transition-colors block px-3 py-1 text-sm",
+              "font-medium transition-colors block px-3 py-1 text-sm ",
               "hover:text-headings",
-              isHomePage && "text-headings bg-muted-foreground/40 rounded-full",
+              isHomePage && "text-headings bg-muted-foreground/40   ",
             ]}>
             Home
           </a>
@@ -35,7 +35,7 @@ const isPhotographyPage = pathname.startsWith("/photography");
             class:list={[
               "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
-              isWritingPage && "text-headings bg-muted-foreground/40 rounded-full",
+              isWritingPage && "text-headings bg-muted-foreground/40 ",
             ]}>
             Writing
           </a>
@@ -46,7 +46,7 @@ const isPhotographyPage = pathname.startsWith("/photography");
             class:list={[
               "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
-              isProjectsPage && "text-headings bg-muted-foreground/40 rounded-full",
+              isProjectsPage && "text-headings bg-muted-foreground/40 ",
             ]}>
             Projects
           </a>
@@ -57,7 +57,7 @@ const isPhotographyPage = pathname.startsWith("/photography");
             class:list={[
               "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
-              isPhotographyPage && "text-headings bg-muted-foreground/40 rounded-full",
+              isPhotographyPage && "text-headings bg-muted-foreground/40 ",
             ]}>
             Photography
           </a>

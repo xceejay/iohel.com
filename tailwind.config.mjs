@@ -41,6 +41,7 @@ module.exports = {
             // '--tw-prose-invert-th-borders': 'var(--color-pink-600)',
             // '--tw-prose-invert-td-borders': 'var(--color-pink-700)',
           },
+          
         },
       }),
     },
