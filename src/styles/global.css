@@ -4,7 +4,9 @@
 
 @supports (font-variation-settings: normal) {
   :root {
-    font-family: var(--font-inter-variable), sans-serif;
+    /* font-family: var(--font-inter-variable), sans-serif; */
+    font-family: var(--font-grenze), sans-serif;
+
     font-optical-sizing: auto;
   }
 }
@@ -55,12 +57,27 @@
   --color-headings: var(--palette-800);
   --color-border: var(--palette-300);
 
-  --font-sans: var(--font-inter), 
-    ui-sans-serif, 
+  /* --font-sans: var(--font-inter),  */
+  --font-sans: var(--font-grenze), 
+    
+  ui-sans-serif, 
     system-ui, 
     sans-serif, 
     'Apple Color Emoji', 
     'Segoe UI Emoji', 
     'Segoe UI Symbol', 
     'Noto Color Emoji';
+}
+
+@layer base {
+  html {
+    font-family: var(--font-grenze), ui-serif, Georgia, "Times New Roman", serif;
+    font-optical-sizing: auto;
+  }
+}
+
+
+body {
+
+font-family: var(--font-grenze);
 }

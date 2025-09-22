@@ -67,27 +67,27 @@ export default defineConfig({
         provider: "local",
         variants: [
           {
-            src: ["./src/assets/fonts/Inter-Regular.woff2"],
+            src: ["./src/assets/fonts/Inter/Inter-Regular.woff2"],
             style: "normal",
             weight: 400,
           },
           {
-            src: ["./src/assets/fonts/Inter-Medium.woff2"],
+            src: ["./src/assets/fonts/Inter/Inter-Medium.woff2"],
             style: "normal",
             weight: 500,
           },
           {
-            src: ["./src/assets/fonts/Inter-SemiBold.woff2"],
+            src: ["./src/assets/fonts/Inter/Inter-SemiBold.woff2"],
             style: "normal",
             weight: 600,
           },
           {
-            src: ["./src/assets/fonts/Inter-Bold.woff2"],
+            src: ["./src/assets/fonts/Inter/Inter-Bold.woff2"],
             style: "normal",
             weight: 700,
           },
           {
-            src: ["./src/assets/fonts/Inter-ExtraBold.woff2"],
+            src: ["./src/assets/fonts/Inter/Inter-ExtraBold.woff2"],
             style: "normal",
             weight: 800,
           },
@@ -99,7 +99,7 @@ export default defineConfig({
         provider: "local",
         variants: [
           {
-            src: ["./src/assets/fonts/InterVariable.woff2"],
+            src: ["./src/assets/fonts/Inter/InterVariable.woff2"],
             style: "normal",
             weight: "variable",
           },
