@@ -17,8 +17,15 @@ const photos = import.meta.glob<{ default: ImageMetadata }>(
 ---
 
 <BaseLayout seo={entry.data.seo}>
-  <Container as="section" class="py-6">
-    <Author {...DEFAULT_CONFIGURATION.author} />
+  <!-- <Container as="section" class="py-6"> -->
+    <!-- <Author {...DEFAULT_CONFIGURATION.author} /> -->
+  <!-- </Container> -->
+
+    <Container as='section' class='py-6'>
+    <div class="flex flex-col gap-6">
+      <span class="text-headings text-4xl">Photos I made</span>
+     
+    </div>
   </Container>
 
   {/* Full width gallery. Do not wrap this in Container */}
