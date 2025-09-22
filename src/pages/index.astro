@@ -32,7 +32,7 @@ const talks = await getCollection('talks');
       <div class="flex items-center">
         <span class="text-headings text-4xl">About</span>
       </div>
-      <div class="prose dark:prose-invert">
+      <div class="prose dark:prose-invert text-md">
         <Content />
       </div>
     </div>
@@ -45,7 +45,7 @@ const talks = await getCollection('talks');
           <ul class="flex flex-col gap-3">
             {links.map((link) => (
               <li class="py-0.5">
-                <div class="flex items-center gap-5">
+                <div class="flex items-center gap-5 text-md">
                   <span class="min-w-28 text-muted-foreground">
                     {link.data.label}
                   </span>
@@ -79,7 +79,7 @@ const talks = await getCollection('talks');
       </Container>
     )
   }
-  {
+  <!-- {
     talks.length > 0 && (
       <Container as="section" class="py-6">
         <div class="flex flex-col gap-5">
@@ -92,5 +92,5 @@ const talks = await getCollection('talks');
         </div>
       </Container>
     )
-  }
+  } -->
 </BaseLayout>
