@@ -1,0 +1,107 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Photos", description = "Photo grid" } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.css" />
+    <style>
+      main {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+      }
+      .prose {
+        width: 720px;
+        max-width: calc(100% - 2em);
+        margin: auto;
+        padding: 1em;
+        color: rgb(var(--gray-dark));
+      }
+
+      /* Justified gallery primitives */
+      .justified-gallery {
+        --padding: max(2.5vw, 12px);
+        --space: max(2.5vw, 12px);
+        --min-height: clamp(200px, 20vw, 400px);
+
+        padding: var(--padding);
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space);
+      }
+      .justified-gallery a {
+        flex-grow: calc(var(--width) * (100000 / var(--height)));
+        flex-basis: calc(var(--min-height) * (var(--width) / var(--height)));
+        aspect-ratio: var(--width) / var(--height);
+        overflow: hidden;
+        opacity: 1;
+        transition: all 0.05s ease-in-out;
+        border-radius: 6px;
+      }
+      .justified-gallery a img {
+        display: block;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+      .justified-gallery a:focus-visible {
+        outline: 3px solid var(--outline);
+        outline-offset: 2px;
+        transform: scale(1.05);
+        z-index: 1;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px 2px rgba(0,0,0,0.1);
+      }
+      .justified-gallery a.hidden {
+        transition: opacity 0.4s ease-in-out;
+        opacity: 0;
+      }
+      .justified-gallery::after {
+        content: " ";
+        flex-grow: 1000000000;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script type="module">
+      import { Fancybox } from "https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.esm.js";
+
+      Fancybox.bind("[data-fancybox='gallery']", {
+        theme: "auto",
+        mainStyle: {
+          "--f-button-width": "44px",
+          "--f-button-height": "44px",
+          "--f-button-border-radius": "50%",
+          "--f-toolbar-padding": "16px"
+        },
+        Carousel: {
+          Arrows: false,
+          Toolbar: {
+            display: {
+              left: [],
+              middle: [],
+              right: ["close"]
+            }
+          },
+          transition: "slide"
+        }
+      });
+    </script>
+  </body>
+</html>
