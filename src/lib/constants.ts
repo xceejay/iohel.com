@@ -27,10 +27,10 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
   baseUrl: astroConfig.site || 'https://getcvfolio.com',
   author: {
     avatar,
-    name: 'Joel Amoako Chamorro',
+    name: 'Joel Amoako',
     headline: 'Engineering and Design',
-    username: 'coderAmoako',
-    location: 'Mexico City',
+    username: 'xceejay',
+    location: 'Ghana, Accra',
     pronouns: 'He/Him',
   },
   seo: {
