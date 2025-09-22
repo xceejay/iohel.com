@@ -6,7 +6,8 @@
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "packageManager": "pnpm@9.12.0"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
