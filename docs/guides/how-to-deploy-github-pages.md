@@ -16,7 +16,7 @@ Your `astro.config.mjs` already has the correct site URL configured:
 
 ```javascript
 export default defineConfig({
-  site: 'https://cv.coderAmoako.com',
+  site: 'https://iohel.com',
   // ... other config
 });
 ```

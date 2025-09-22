@@ -24,7 +24,7 @@ type DefaultConfigurationType = {
 }
 
 export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
-  baseUrl: astroConfig.site || 'https://getcvfolio.com',
+  baseUrl: astroConfig.site || 'https://iohel.com',
   author: {
     avatar,
     name: 'Joel Amoako',
@@ -34,12 +34,12 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
     pronouns: 'He/Him',
   },
   seo: {
-    title: 'CV Folio — An Astro template inspired on Read.cv',
+    title: 'My section of the internet',
     description: 'Clean and aesthetic portfolio website for developers and designers',
     type: 'website',
     image: MetaDefaultImage,
     twitter: {
-      creator: '@cvfolio'
+      creator: '@joelkofiamoako'
     },
     robots: 'noindex, nofollow',
   }
