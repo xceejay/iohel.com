@@ -9,60 +9,58 @@ const isProjectsPage = pathname.startsWith("/projects");
 const isPhotographyPage = pathname.startsWith("/photography");
 
 ---
-
 <Container
   as="header"
   class="w-full max-w-full flex justify-center items-center"
 >
   <div
-    class="w-max fixed top-0 mt-5 bg-muted-foreground/40 backdrop-blur-md border border-border rounded-full p-1"
+    class="w-max fixed top-0 mt-2 bg-muted-foreground/40 backdrop-blur-md  rounded-full p-2"
   >
     <nav class="flex items-center">
-      <ul class="flex items-center gap-1">
+      <ul class="flex items-center gap-0.5">
         <li>
           <a
             href="/"
             class:list={[
-              "font-medium transition-colors block px-5 py-2",
+              "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
               isHomePage && "text-headings bg-muted-foreground/40 rounded-full",
-            ]}>Home</a
-          >
+            ]}>
+            Home
+          </a>
         </li>
         <li>
           <a
             href="/writing"
             class:list={[
-              "font-medium transition-colors block px-5 py-2",
+              "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
-              isWritingPage &&
-                "text-headings bg-muted-foreground/40 rounded-full",
-            ]}>Writing</a
-          >
+              isWritingPage && "text-headings bg-muted-foreground/40 rounded-full",
+            ]}>
+            Writing
+          </a>
         </li>
-
         <li>
           <a
             href="/projects"
             class:list={[
-              "font-medium transition-colors block px-5 py-2",
+              "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
-              isProjectsPage &&
-                "text-headings bg-muted-foreground/40 rounded-full",
-            ]}>Projects</a
-          >
+              isProjectsPage && "text-headings bg-muted-foreground/40 rounded-full",
+            ]}>
+            Projects
+          </a>
         </li>
-
         <li>
           <a
             href="/photography"
             class:list={[
-              "font-medium transition-colors block px-5 py-2",
+              "font-medium transition-colors block px-3 py-1 text-sm",
               "hover:text-headings",
-              isPhotographyPage &&
-                "text-headings bg-muted-foreground/40 rounded-full",
-            ]}>Photography</a
-          >
+              isPhotographyPage && "text-headings bg-muted-foreground/40 rounded-full",
+            ]}>
+            Photography
+          </a>
         </li>
       </ul>
     </nav>
