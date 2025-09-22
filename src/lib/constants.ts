@@ -28,7 +28,7 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
   author: {
     avatar,
     name: 'Joel Amoako',
-    headline: 'Engineering and Design',
+    headline: 'Sofware Engineering',
     username: 'xceejay',
     location: 'Ghana, Accra',
     pronouns: 'He/Him',
