@@ -29,6 +29,39 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
+        name: "Grenze",
+        cssVariable: "--font-grenze",
+        provider: "local",
+        variants: [
+          {
+            src: ["./src/assets/fonts/Grenze/grenze-v16-latin-300.woff2"],
+            style: "normal",
+            weight: 300,
+          },
+          {
+            src: ["./src/assets/fonts/Grenze/grenze-v16-latin-regular.woff2"],
+            style: "normal",
+            weight: 400,
+          },
+          {
+            src: ["./src/assets/fonts/Grenze/grenze-v16-latin-500.woff2"],
+            style: "normal",
+            weight: 500,
+          },
+          {
+            src: ["./src/assets/fonts/Grenze/grenze-v16-latin-600.woff2"],
+            style: "normal",
+            weight: 600,
+          },
+          {
+            src: ["./src/assets/fonts/Grenze/grenze-v16-latin-700.woff2"],
+            style: "normal",
+            weight: 700,
+          },
+        ],
+      }
+      ,
+      {
         name: "Inter",
         cssVariable: "--font-inter",
         provider: "local",
