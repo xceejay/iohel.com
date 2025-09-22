@@ -7,7 +7,7 @@ The source code is still being worked on, so **it's important to share it** with
 Over time, we've managed to add features and improve the design. There are still some things left to do, but the most important thing is that there's an opportunity for this project to be **community-driven**.
 
 - Telegram group: **[Cvfolio »](https://t.me/+5xVGgQ9aQOk1ZmNh)**
-- Follow me on X at **[@coderdiaz »](https://x.com/coderdiaz)**
+- Follow me on X at **[@coderAmoako »](https://x.com/coderAmoako)**
 
 ## How to contribute
 
@@ -20,7 +20,7 @@ In terms of local development, you can use the following requirements:
 If you have these requirements, you can start by cloning the repository and installing the dependencies:
 
 ```sh
-git clone https://github.com/coderdiaz/cvfolio.git
+git clone https://github.com/coderAmoako/cvfolio.git
 
 cd cvfolio
 
@@ -52,7 +52,7 @@ git commit -am "Your commit message"
 git push
 ```
 
-Visit [github.com/coderdiaz/cvfolio/pulls](https://github.com/coderdiaz/cvfolio/pulls) and create a pull request.
+Visit [github.com/coderAmoako/cvfolio/pulls](https://github.com/coderAmoako/cvfolio/pulls) and create a pull request.
 
 ## Check our Documentation
 
@@ -66,4 +66,4 @@ Here is a list of documentation for more in depth information about the cvfolio.
 
 Feel free to add more documentation.
 
-If you have any comments or recommendations contact me vía [X](https://x.com/coderdiaz) or email [hey(at)coderdiaz.com](mailto:hey@coderdiaz.com), or write an Issue with your proposal.
+If you have any comments or recommendations contact me vía [X](https://x.com/coderAmoako) or email [hey(at)coderAmoako.com](mailto:hey@coderAmoako.com), or write an Issue with your proposal.

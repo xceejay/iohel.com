@@ -1,6 +1,6 @@
 # License
 
-Copyright (c) 2025 Javier Diaz Chamorro
+Copyright (c) 2025 Javier Amoako Chamorro
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Template"), to use, copy, and modify the Template subject to the following conditions:
 
