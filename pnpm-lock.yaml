@@ -72,6 +72,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.1.3
         version: 2.2.4
+      fsevents:
+        specifier: ^2.3.3
+        version: 2.3.3
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -4647,8 +4650,7 @@ snapshots:
       unicode-properties: 1.4.1
       unicode-trie: 2.0.0
 
-  fsevents@2.3.3:
-    optional: true
+  fsevents@2.3.3: {}
 
   gensync@1.0.0-beta.2: {}
 
