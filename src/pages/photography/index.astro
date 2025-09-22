@@ -12,7 +12,7 @@ const entry = await getEntry("pages", "photography");
 
 // images are in src/content/photos
 const photos = import.meta.glob<{ default: ImageMetadata }>(
-  "../../content/photos/*.{jpg,jpeg,png,webp,avif}"
+  "../../content/photos/*.{jpg,jpeg,png,webp,avif}",
 );
 ---
 
@@ -49,18 +49,27 @@ const photos = import.meta.glob<{ default: ImageMetadata }>(
 
 <script>
   import { Fancybox } from "@fancyapps/ui/dist/fancybox/";
+  import { Compactmode } from "@fancyapps/ui/dist/fancybox/fancybox.compactmode.js";
+  import "@fancyapps/ui/dist/fancybox/fancybox.compactmode.css";
+
   Fancybox.bind("[data-fancybox='gallery']", {
-    theme: "auto",
-    mainStyle: {
-      "--f-button-width": "44px",
-      "--f-button-height": "44px",
-      "--f-button-border-radius": "50%",
-      "--f-toolbar-padding": "16px",
+    plugins: {
+      Compactmode,
+    },
+    // other Fancybox options
+    Thumbs: {
+      type: "classic",
+      showOnStart: false,
     },
     Carousel: {
-      Arrows: false,
-      Toolbar: { display: { left: [], middle: [], right: ["close"] } },
-      transition: "slide",
+      Arrows: true,
+    },
+    Toolbar: {
+      display: {
+        left: [],
+        middle: [],
+        right: ["close"],
+      },
     },
   });
 </script>
