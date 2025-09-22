@@ -57,10 +57,8 @@
   --color-headings: var(--palette-800);
   --color-border: var(--palette-300);
 
-  /* --font-sans: var(--font-inter),  */
-  --font-sans: var(--font-grenze), 
-    
-  ui-sans-serif, 
+  --font-sans: var(--font-inter), 
+    ui-sans-serif, 
     system-ui, 
     sans-serif, 
     'Apple Color Emoji', 
@@ -69,15 +67,6 @@
     'Noto Color Emoji';
 }
 
-@layer base {
-  html {
-    font-family: var(--font-grenze), ui-serif, Georgia, "Times New Roman", serif;
-    font-optical-sizing: auto;
-  }
-}
-
-
-body {
-
-font-family: var(--font-grenze);
+body{
+  font-family: var(--font-grenze);
 }

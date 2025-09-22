@@ -5,13 +5,8 @@ module.exports = {
       typography: () => ({
         DEFAULT: {
           css: {
-            fontFamily: `var(--font-grenze), 'ui-serif', Georgia, 'Times New Roman', serif`, sans: [
-              "var(--font-grenze)",
-              "ui-serif",
-              "Georgia",
-              "Times New Roman",
-              "serif",
-          ],
+            // fontFamily: `var(--font-inter-variable), var(--font-inter), 'ui-sans-serif', 'system-ui', 'sans-serif', '"Apple Color Emoji"','"Segoe UI Emoji"', 'Segoe UI Symbol','"Noto Color Emoji"'`,
+            fontFamily: `var(--font-grenze), 'ui-serif', Georgia, 'Times New Roman', serif`,
 
             '--tw-prose-body': 'var(--color-foreground)',
             '--tw-prose-headings': 'var(--color-headings)',
