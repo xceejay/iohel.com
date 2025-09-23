@@ -7,17 +7,17 @@ const isHomePage = pathname === "/";
 const isWritingPage = pathname.startsWith("/writing");
 const isProjectsPage = pathname.startsWith("/projects");
 const isPhotographyPage = pathname.startsWith("/photography");
+const isNextPage = pathname.startsWith("/next");
 
 ---
+
 <Container
   as="header"
-  class="w-full max-w-full flex justify-center items-center "
+  class="w-full max-w-full flex justify-center items-center"
 >
-  <div
-    class="w-max fixed top-0 mt-2   bg-background  p-2 z-50"
-  >
-    <nav class="flex items-center">
-      <ul class="flex items-center gap-0.5">
+  <div class="w-max fixed top-0 mt-2 bg-background p-2 z-50 ">
+    <nav class="flex items-center ">
+      <ul class="flex items-center gap-3">
         <li>
           <a
             href="/"
@@ -25,21 +25,12 @@ const isPhotographyPage = pathname.startsWith("/photography");
               "font-medium transition-colors block px-3 py-1 text-lg ",
               "hover:text-headings",
               isHomePage && "text-headings bg-muted-foreground/40   ",
-            ]}>
-            Home
+            ]}
+          >
+            Joel
           </a>
         </li>
-        <li>
-          <a
-            href="/writing"
-            class:list={[
-              "font-medium transition-colors block px-3 py-1 text-lg",
-              "hover:text-headings",
-              isWritingPage && "text-headings bg-muted-foreground/40 ",
-            ]}>
-            Writing
-          </a>
-        </li>
+
         <li>
           <a
             href="/projects"
@@ -47,8 +38,9 @@ const isPhotographyPage = pathname.startsWith("/photography");
               "font-medium transition-colors block px-3 py-1 text-lg",
               "hover:text-headings",
               isProjectsPage && "text-headings bg-muted-foreground/40 ",
-            ]}>
-            Projects
+            ]}
+          >
+            Work
           </a>
         </li>
         <li>
@@ -58,8 +50,36 @@ const isPhotographyPage = pathname.startsWith("/photography");
               "font-medium transition-colors block px-3 py-1 text-lg",
               "hover:text-headings",
               isPhotographyPage && "text-headings bg-muted-foreground/40 ",
-            ]}>
-            Photography
+            ]}
+          >
+            Photos
+          </a>
+        </li>
+        <li>
+          <a
+            href="/writing"
+            class:list={[
+              "font-medium transition-colors block px-3 py-1 text-lg",
+              "hover:text-headings",
+              isWritingPage && "text-headings bg-muted-foreground/40 ",
+            ]}
+          >
+            Notes
+          </a>
+        </li>
+
+
+
+                <li>
+          <a
+            href="/next"
+            class:list={[
+              "font-medium transition-colors block px-3 py-1 text-lg",
+              "hover:text-headings",
+              isNextPage && "text-headings bg-muted-foreground/40 ",
+            ]}
+          >
+            Archive
           </a>
         </li>
       </ul>
