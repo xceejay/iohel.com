@@ -4,17 +4,15 @@ import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 import Container from "@/components/Container.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { DEFAULT_CONFIGURATION } from "@/lib/constants";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const entry = await getEntry("pages", "photography");
 
 // images are in src/content/photos
 const photos = import.meta.glob<{ default: ImageMetadata }>(
-  "../../content/photos/*.{jpg,jpeg,png,webp,avif}",
+  "../../content/photos/*.{jpg,jpeg,png,webp,avif}"
 );
-
-// shuffle to add variety each build
-const shuffled = Object.entries(photos).sort(() => Math.random() - 0.5);
 ---
 
 <BaseLayout seo={entry.data.seo}>
@@ -24,30 +22,30 @@ const shuffled = Object.entries(photos).sort(() => Math.random() - 0.5);
     </div>
   </Container>
 
-  <Container as="section" class="py-6">
-    <div class="masonry" id="photoswipe">
-      {
-        shuffled.map(async ([_path, mod], index) => {
-          const { default: imageData } = await mod();
-          return (
-            <a
-              href={imageData.src}
-              target="_blank"
-              data-fancybox="gallery"
-              aria-label="Open photo"
-            >
-              <Image
-                format="webp"
-                src={imageData}
-                alt=""
-                loading={index < 20 ? "eager" : "lazy"}
-              />
-            </a>
-          );
-        })
-      }
-    </div>
-  </Container>
+  {/* Full width gallery. Do not wrap this in Container */}
+  <section class="justified-gallery" id="photoswipe">
+    {
+      Object.entries(photos).map(async ([_path, mod], index) => {
+        const { default: imageData } = await mod();
+        return (
+          <a
+            style={`--width: ${imageData.width}; --height: ${imageData.height};`}
+            href={imageData.src}
+            target="_blank"
+            data-fancybox="gallery"
+          >
+            <Image
+              format="webp"
+              src={imageData}
+              alt=""
+              height={400}
+              loading={index < 20 ? "eager" : "lazy"}
+            />
+          </a>
+        );
+      })
+    }
+  </section>
 </BaseLayout>
 
 <script>
@@ -56,49 +54,68 @@ const shuffled = Object.entries(photos).sort(() => Math.random() - 0.5);
   import "@fancyapps/ui/dist/fancybox/fancybox.compactmode.css";
 
   Fancybox.bind("[data-fancybox='gallery']", {
-    plugins: { Compactmode },
-    Thumbs: { type: "classic", showOnStart: false },
-    Carousel: { Arrows: true },
-    Toolbar: { display: { left: [], middle: [], right: ["close"] } },
+    plugins: {
+      Compactmode,
+    },
+    Thumbs: {
+      type: "classic",
+      showOnStart: false,
+    },
+    Carousel: {
+      Arrows: true,
+    },
+    Toolbar: {
+      display: {
+        left: [],
+        middle: [],
+        right: ["close"],
+      },
+    },
   });
 </script>
 
 <style>
-/* Masonry within Container using column-width so mobile can still show 2+ columns */
-.masonry {
-  --gap: 12px;
-  column-gap: var(--gap);
-  column-width: 150px; /* browser will create as many columns as fit */
-}
+  .justified-gallery {
+    position: relative;
+    z-index: 0;
+    width: 100%;
 
-/* Nudge widths at very small screens to keep 2 columns where possible */
-@media (max-width: 400px) {
-  .masonry { column-width: 130px; }
-}
+    --padding: max(2.5vw, 12px);
+    --space: max(2.5vw, 12px);
+    --min-height: clamp(200px, 20vw, 400px);
 
-.masonry a {
-  display: inline-block;
-  width: 100%;
-  margin: 0 0 var(--gap);
-  border-radius: 10px;
-  overflow: hidden;
-  break-inside: avoid;
-}
+    padding: var(--padding);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space);
+    align-items: stretch;
+  }
 
-.masonry a img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.25s ease;
-}
+  .justified-gallery a {
+    flex-grow: calc(var(--width) * (100000 / var(--height)));
+    flex-basis: calc(var(--min-height) * (var(--width) / var(--height)));
+    aspect-ratio: var(--width) / var(--height);
+    overflow: hidden;
+    transition: transform 0.05s ease-in-out;
+    border-radius: 6px;
+  }
 
-.masonry a:hover img {
-  transform: scale(1.03);
-}
+  .justified-gallery a img {
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
 
-.masonry a:focus-visible {
-  outline: 3px solid var(--outline, #7aa2ff);
-  outline-offset: 2px;
-}
+  .justified-gallery a:focus-visible {
+    outline: 3px solid var(--outline);
+    outline-offset: 2px;
+    transform: scale(1.03);
+    z-index: 1;
+  }
 
+  .justified-gallery::after {
+    content: " ";
+    flex-grow: 1000000000;
+  }
 </style>
