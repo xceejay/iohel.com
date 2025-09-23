@@ -10,79 +10,81 @@ const isPhotographyPage = pathname.startsWith("/photography");
 const isNextPage = pathname.startsWith("/next");
 
 ---
-
 <Container
   as="header"
-  class="w-full max-w-full flex justify-center items-center"
+  class="w-full flex justify-center items-center"
 >
-  <div class="w-max fixed top-0 mt-2 bg-background p-2 z-50 ">
-    <nav class="flex items-center ">
-      <ul class="flex items-center gap-3">
-        <li>
-          <a
-            href="/"
-            class:list={[
-              "font-medium transition-colors block px-3 py-1 text-lg ",
-              "hover:text-headings",
-              isHomePage && "text-headings bg-muted-foreground/40   ",
-            ]}
-          >
-            Joel
-          </a>
-        </li>
+  <div class="fixed top-0 mt-0 z-50 w-full">
+    <!-- Background stretch -->
+    <div class="bg-background px-8 sm:px-12 md:px-16 py-2">
+      <nav class="w-full max-w-[600px] mx-auto">
+        <ul class="flex items-center justify-between flex-wrap">
+          <li>
+            <a
+              href="/"
+              class:list={[
+                "font-medium transition-colors block px-2 py-1 text-lg",
+                "hover:text-headings",
+                isHomePage && "text-headings bg-muted-foreground/40",
+              ]}
+            >
+              Joel
+            </a>
+          </li>
 
-        <li>
-          <a
-            href="/projects"
-            class:list={[
-              "font-medium transition-colors block px-3 py-1 text-lg",
-              "hover:text-headings",
-              isProjectsPage && "text-headings bg-muted-foreground/40 ",
-            ]}
-          >
-            Work
-          </a>
-        </li>
-        <li>
-          <a
-            href="/photography"
-            class:list={[
-              "font-medium transition-colors block px-3 py-1 text-lg",
-              "hover:text-headings",
-              isPhotographyPage && "text-headings bg-muted-foreground/40 ",
-            ]}
-          >
-            Photos
-          </a>
-        </li>
-        <li>
-          <a
-            href="/writing"
-            class:list={[
-              "font-medium transition-colors block px-3 py-1 text-lg",
-              "hover:text-headings",
-              isWritingPage && "text-headings bg-muted-foreground/40 ",
-            ]}
-          >
-            Notes
-          </a>
-        </li>
+          <li>
+            <a
+              href="/projects"
+              class:list={[
+                "font-medium transition-colors block px-2 py-1 text-lg",
+                "hover:text-headings",
+                isProjectsPage && "text-headings bg-muted-foreground/40",
+              ]}
+            >
+              Work
+            </a>
+          </li>
 
+          <li>
+            <a
+              href="/photography"
+              class:list={[
+                "font-medium transition-colors block px-2 py-1 text-lg",
+                "hover:text-headings",
+                isPhotographyPage && "text-headings bg-muted-foreground/40",
+              ]}
+            >
+              Photos
+            </a>
+          </li>
 
+          <li>
+            <a
+              href="/writing"
+              class:list={[
+                "font-medium transition-colors block px-2 py-1 text-lg",
+                "hover:text-headings",
+                isWritingPage && "text-headings bg-muted-foreground/40",
+              ]}
+            >
+              Notes
+            </a>
+          </li>
 
-                <li>
-          <a
-            href="/next"
-            class:list={[
-              "font-medium transition-colors block px-3 py-1 text-lg",
-              "hover:text-headings",
-              isNextPage && "text-headings bg-muted-foreground/40 ",
-            ]}
-          >
-            Archive
-          </a>
-        </li>
-      </ul>
-    </nav>
+          <li>
+            <a
+              href="/next"
+              class:list={[
+                "font-medium transition-colors block px-2 py-1 text-lg",
+                "hover:text-headings",
+                isNextPage && "text-headings bg-muted-foreground/40",
+              ]}
+            >
+              Archive
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </Container>

@@ -44,7 +44,7 @@ export default function SwitchTheme() {
   return (
     <button
       onClick={toggleTheme}
-      className="hidden md:block fixed z-50 top-0 mt-5 mr-5 right-0 p-2 rounded-full bg-muted-foreground/40 hover:bg-muted-foreground/60 text-headings transition-colors cursor-pointer"
+      className="hidden md:block fixed z-50 top-0 mt-2 mr-5 right-0 p-2 rounded-full bg-muted-foreground/40 hover:bg-muted-foreground/60 text-headings transition-colors cursor-pointer"
       aria-label={`Switch to ${theme === DARK_THEME ? 'light' : 'dark'} theme`}
     >
       {theme === DARK_THEME ? (
