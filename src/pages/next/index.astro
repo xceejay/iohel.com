@@ -1,6 +1,4 @@
 ---
-import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
 import { getCollection, getEntry } from 'astro:content';
 import Container from '@/components/Container.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -15,180 +13,84 @@ const projects = await getCollection('project-posts');
 const jobs = await getCollection('jobs');
 const talks = await getCollection('talks');
 
-// Load photos
-const photoEntries = import.meta.glob<{ default: ImageMetadata }>(
-  "../../content/photos/*.{jpg,jpeg,png,webp,avif}"
-);
-const photoItems = await Promise.all(
-  Object.entries(photoEntries).map(async ([path]) => {
-    const fileName = path.split('/').pop()?.replace(/\.[^.]+$/, '') || 'Photo';
-    return {
-      type: 'photo' as const,
-      title: fileName.replace(/_/g, ' '),
-      date: new Date('2025-01-01'),
-      path,
-    };
-  })
-);
-
 // Normalize everything into one timeline
 type ArchiveItem = {
-  type: 'note' | 'project' | 'job' | 'talk' | 'blog' | 'photo';
+  type: string;
   title: string;
-  description?: string;
   date: Date;
   url?: string;
-  extra?: string;
-  photoPath?: string;
+  subtitle?: string;
 };
 
 const items: ArchiveItem[] = [
   ...blogPosts.map(p => ({
-    type: 'blog' as const,
+    type: 'old post',
     title: p.data.title,
-    description: p.data.description,
     date: p.data.pubDate,
     url: `/blog/${p.id}/`,
   })),
   ...notes.map(p => ({
-    type: 'note' as const,
+    type: 'note',
     title: p.data.title,
-    description: p.data.seo?.description,
     date: p.data.date,
     url: `/writing/${p.id}/`,
   })),
   ...projects.map(p => ({
-    type: 'project' as const,
+    type: 'project',
     title: p.data.title,
-    description: p.data.seo?.description,
     date: p.data.date,
     url: `/projects/${p.id}/`,
   })),
   ...jobs.map(j => ({
-    type: 'job' as const,
-    title: j.data.title,
-    description: `${j.data.company}, ${j.data.location}`,
+    type: 'work',
+    title: `${j.data.title} at ${j.data.company}`,
     date: new Date(`${j.data.from}-01-01`),
     url: j.data.url,
-    extra: `${j.data.from}${j.data.to === 'Now' ? ' onwards' : ` to ${j.data.to}`}`,
+    subtitle: `${j.data.location}`,
   })),
   ...talks.map(t => ({
-    type: 'talk' as const,
+    type: 'talk',
     title: t.data.title,
-    description: `${t.data.event}, ${t.data.location}`,
     date: new Date(`${t.data.year}-01-01`),
     url: t.data.url,
-  })),
-  ...photoItems.map(p => ({
-    type: 'photo' as const,
-    title: p.title,
-    date: p.date,
-    photoPath: p.path,
+    subtitle: `${t.data.event}, ${t.data.location}`,
   })),
 ];
 
 // Sort newest first
 items.sort((a, b) => b.date.valueOf() - a.date.valueOf());
-
-// Group by year
-const grouped = items.reduce((acc, item) => {
-  const year = item.date.getFullYear().toString();
-  if (!acc[year]) acc[year] = [];
-  acc[year].push(item);
-  return acc;
-}, {} as Record<string, ArchiveItem[]>);
-
-const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
-
-const tagColors: Record<string, string> = {
-  note: 'bg-blue-200/40 text-blue-800 dark:bg-blue-800/30 dark:text-blue-300',
-  project: 'bg-green-200/40 text-green-800 dark:bg-green-800/30 dark:text-green-300',
-  job: 'bg-amber-200/40 text-amber-800 dark:bg-amber-800/30 dark:text-amber-300',
-  talk: 'bg-purple-200/40 text-purple-800 dark:bg-purple-800/30 dark:text-purple-300',
-  blog: 'bg-rose-200/40 text-rose-800 dark:bg-rose-800/30 dark:text-rose-300',
-  photo: 'bg-teal-200/40 text-teal-800 dark:bg-teal-800/30 dark:text-teal-300',
-};
-
-const tagLabels: Record<string, string> = {
-  note: 'note',
-  project: 'project',
-  job: 'work',
-  talk: 'talk',
-  blog: 'old post',
-  photo: 'photo',
-};
-
-// Resolve photos for rendering
-const resolvedPhotos = new Map<string, ImageMetadata>();
-for (const item of items) {
-  if (item.type === 'photo' && item.photoPath && photoEntries[item.photoPath]) {
-    const mod = await photoEntries[item.photoPath]();
-    resolvedPhotos.set(item.photoPath, mod.default);
-  }
-}
 ---
 
 <BaseLayout seo={entry.data.seo}>
   <Container as='section' class='py-6'>
-    <div class="flex flex-col gap-2 mb-8">
+  </Container>
+  <Container as='section' class='py-6'>
+    <div class="flex flex-col gap-6">
       <span class="text-headings text-4xl">Archive</span>
-      <p class="text-muted-foreground text-lg">Everything I've done, all in one place. Notes, projects, jobs, talks, photos.</p>
-    </div>
-
-    <div class="flex flex-col gap-10">
-      {years.map((year) => (
-        <div class="flex flex-col gap-4">
-          <div class="sticky top-16 z-10 bg-background py-2">
-            <span class="text-headings text-2xl font-semibold">{year}</span>
-          </div>
-          <ul class="flex flex-col gap-3">
-            {grouped[year].map((item) => (
-              <li class="py-3 border-b border-border/50 last:border-0">
-                {item.type === 'photo' && item.photoPath && resolvedPhotos.has(item.photoPath) ? (
-                  <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-3">
-                      <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type]}`}>
-                        {tagLabels[item.type]}
-                      </span>
-                      <span class="text-headings font-medium text-lg capitalize">{item.title}</span>
-                    </div>
-                    <div class="mt-1 rounded-lg overflow-hidden max-w-xs">
-                      <Image
-                        src={resolvedPhotos.get(item.photoPath!)!}
-                        alt={item.title}
-                        format="webp"
-                        height={200}
-                        class="object-cover rounded-lg"
-                      />
-                    </div>
-                  </div>
+      <ul class="flex flex-col gap-3 text-xl">
+        {items.map((item) => (
+          <li class="py-2">
+            <div class="flex gap-5">
+              <div class="relative min-w-22 shrink-0">
+                <span class="text-muted-foreground text-xl">{formatDate(item.date)}</span>
+              </div>
+              <div class="flex flex-col">
+                {item.url ? (
+                  <a href={item.url} class="flex flex-col">
+                    <span class="text-headings font-medium">{item.title}</span>
+                    <span class="text-muted-foreground">{item.type}{item.subtitle ? ` · ${item.subtitle}` : ''}</span>
+                  </a>
                 ) : (
-                  <div class="flex items-start gap-3">
-                    <span class={`text-xs px-2 py-0.5 rounded-full font-medium mt-1 shrink-0 ${tagColors[item.type]}`}>
-                      {tagLabels[item.type]}
-                    </span>
-                    <div class="flex flex-col gap-0.5">
-                      {item.url ? (
-                        <a href={item.url} class="text-headings font-medium text-lg hover:underline">
-                          {item.title}
-                        </a>
-                      ) : (
-                        <span class="text-headings font-medium text-lg">{item.title}</span>
-                      )}
-                      {item.description && (
-                        <span class="text-muted-foreground">{item.description}</span>
-                      )}
-                      {item.extra && (
-                        <span class="text-muted-foreground text-sm">{item.extra}</span>
-                      )}
-                    </div>
+                  <div class="flex flex-col">
+                    <span class="text-headings font-medium">{item.title}</span>
+                    <span class="text-muted-foreground">{item.type}{item.subtitle ? ` · ${item.subtitle}` : ''}</span>
                   </div>
                 )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   </Container>
 </BaseLayout>
