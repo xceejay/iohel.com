@@ -31,7 +31,7 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
     headline: 'AI & Software Engineering',
     username: 'xceejay',
     location: 'Ghana, Accra',
-    pronouns: 'He/Him',
+    pronouns: undefined,
   },
   seo: {
     title: 'My section of the internet',
