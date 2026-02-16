@@ -1,22 +1,36 @@
 ---
-title:  Digital Ocean Terraform Jitsi
+title: Digital Ocean Terraform Jitsi
 date: 2025-01-01
 image: ./meta.jpg
 seo:
   title: Digital Ocean Terraform Jitsi
-  description: Automatically deploy a Jitsi instance
+  description: Automate Jitsi Meet deployments on DigitalOcean using Terraform for one-command infrastructure
   type: article
-  keywords: blog code
+  keywords: jitsi, terraform, digitalocean, infrastructure as code, video conferencing, devops
 ---
 
-{/* ```ts
-const a = 1;
-```
+## One Command Jitsi Deployments
 
-```ts
-const b = 2;
-```
+After writing the [Easy Jitsi documentation](https://docs.easyjitsi.com), I noticed the same pattern with every deployment. People would follow the manual setup guide, get stuck on networking or firewall rules, and spend hours debugging something that could have been automated from the start.
 
-```ts
-const c = 3;
-``` */}
+So I built a Terraform configuration that spins up a fully working Jitsi Meet instance on DigitalOcean with a single command. No manual SSH sessions, no copy-pasting config files, no guessing which ports to open.
+
+### How It Works
+
+The Terraform setup handles everything:
+
+- Provisions a DigitalOcean droplet with the right specs for Jitsi
+- Configures DNS records automatically
+- Installs and configures Jitsi Meet with secure defaults
+- Sets up SSL certificates via Let's Encrypt
+- Opens the correct firewall ports for WebRTC traffic
+
+### Why Terraform?
+
+I wanted something repeatable. With Terraform, you can tear down an instance and spin up a fresh one in minutes. This is especially useful for testing different Jitsi configurations or running temporary video conferencing for events.
+
+It also makes the infrastructure self-documenting. Instead of a wiki page that says "log in and run these 20 commands," the Terraform files describe exactly what the infrastructure looks like.
+
+### Who It's For
+
+This is built for teams and developers who want to self-host Jitsi without spending a day on setup. If you've used the Easy Jitsi docs for a manual install before, this is the automated version of that same process.

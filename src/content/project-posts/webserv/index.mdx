@@ -16,12 +16,12 @@ seo:
 
 Building a web server in C strips away every abstraction. You deal directly with:
 
-- **Socket programming** — Creating, binding, and listening on TCP sockets
-- **HTTP parsing** — Reading raw bytes and extracting method, path, headers, and body
-- **Concurrency** — Handling multiple clients without blocking
-- **Memory management** — No garbage collector, no runtime safety net
+- **Socket programming** where you create, bind, and listen on TCP sockets
+- **HTTP parsing** where you read raw bytes and extract method, path, headers, and body
+- **Concurrency** where you handle multiple clients without blocking
+- **Memory management** where there's no garbage collector and no runtime safety net
 
-Most developers interact with HTTP through high-level frameworks. Writing a server in C forces you to understand what those frameworks are doing underneath. Every `Content-Length` header, every `\r\n` line ending, every `Connection: keep-alive` — you handle it all manually.
+Most developers interact with HTTP through high-level frameworks. Writing a server in C forces you to understand what those frameworks are doing underneath. Every `Content-Length` header, every `\r\n` line ending, every `Connection: keep-alive`, you handle it all manually.
 
 ### Why C?
 
