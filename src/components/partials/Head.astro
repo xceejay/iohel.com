@@ -13,28 +13,55 @@ const { seo } = Astro.props;
 
 const image = await getImage({ src: seo?.image || defaultSeo.image, format: 'jpg'});
 const seoImage = generateAbsoluteUrl(image.src);
+const canonicalUrl = seo?.canonicalUrl || Astro.url.href;
+const pageTitle = seo?.title || defaultSeo.title;
+const pageDescription = seo?.description || defaultSeo.description;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Joel Amoako",
+      "url": DEFAULT_CONFIGURATION.baseUrl,
+      "description": defaultSeo.description,
+    },
+    {
+      "@type": "Person",
+      "name": "Joel Amoako",
+      "url": DEFAULT_CONFIGURATION.baseUrl,
+      "jobTitle": "AI & Software Engineer",
+      "description": "AI engineer and consultant helping businesses build AI-powered software and workflow automation",
+      "knowsAbout": ["Artificial Intelligence", "n8n", "Zapier", "Workflow Automation", "Go", "Python", "Node.js", "Backend Systems"],
+      "sameAs": [
+        "https://github.com/xceejay",
+        "https://bsky.app/profile/iohel.com"
+      ]
+    }
+  ]
+};
 ---
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" title="Joel Amoako" href="/rss.xml" />
+  <link rel="canonical" href={canonicalUrl} />
   <Font cssVariable="--font-grenze" preload />
-  <Font cssVariable="--font-grenze" preload />
-  { seo?.canonicalUrl && <link rel="canonical" href={seo?.canonicalUrl} />}
-  <title>{seo?.title || defaultSeo.title}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{pageTitle}</title>
   <meta name="generator" content={Astro.generator} />
-  <meta name="description" content={seo?.description || defaultSeo.description} />
+  <meta name="description" content={pageDescription} />
   <slot name="keywords">
     <meta name="keywords" content={seo?.keywords || defaultSeo.keywords} />
   </slot>
-  <meta name="generator" content={Astro.generator} />
   <meta name="robots" content={seo?.robots || defaultSeo.robots} />
   <!-- OpenGraph Meta -->
   <meta property="og:type" content={seo?.type ?? 'website'} />
-  <meta property="og:site_name" content={defaultSeo.title} />
-  <meta property="og:title" content={seo?.title || defaultSeo.title} />
-  <meta property="og:description" content={seo?.description || defaultSeo.description} />
+  <meta property="og:site_name" content="Joel Amoako" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
   <meta property="og:image" content={seoImage} />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="720" />
@@ -42,13 +69,15 @@ const seoImage = generateAbsoluteUrl(image.src);
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:creator" content={seo?.twitter?.creator || defaultSeo.twitter?.creator} />
   <meta property="twitter:site" content={seo?.twitter?.creator || defaultSeo.twitter?.creator} />
-  <meta property="twitter:title" content={seo?.title || defaultSeo.title} />
-  <meta property="twitter:description" content={seo?.description || defaultSeo.description} />
+  <meta property="twitter:title" content={pageTitle} />
+  <meta property="twitter:description" content={pageDescription} />
   <meta property="twitter:image" content={seoImage} />
+  <!-- Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <script is:inline>
     // Prevent FOUC by applying theme before page renders
     (function() {
-      const theme = localStorage.getItem('theme') || 
+      const theme = localStorage.getItem('theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');

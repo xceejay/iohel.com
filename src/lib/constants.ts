@@ -28,19 +28,19 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
   author: {
     avatar,
     name: 'Joel Amoako',
-    headline: 'Sofware Engineering',
+    headline: 'AI & Software Engineering',
     username: 'xceejay',
     location: 'Ghana, Accra',
     pronouns: 'He/Him',
   },
   seo: {
     title: 'My section of the internet',
-    description: 'Clean and aesthetic portfolio website for developers and designers',
+    description: 'AI engineer and consultant building AI-powered software, workflow automation, and scalable backend systems for businesses worldwide',
     type: 'website',
     image: MetaDefaultImage,
     twitter: {
       creator: '@joelkofiamoako'
     },
-    robots: 'noindex, nofollow',
+    robots: 'index, follow',
   }
 };

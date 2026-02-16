@@ -1,0 +1,44 @@
+---
+title: REST API Starter Kit (Go)
+date: 2022-10-19
+seo:
+  title: REST API Starter Kit in Go
+  description: A blazingly fast RESTful API starter for small to medium scale Go projects
+  type: article
+  keywords: golang, rest api, chi, gorm, starter kit, backend
+---
+
+## Blazingly Fast RESTful API Starter in Go
+
+[REST API Starter](https://github.com/xceejay/rest-api-starter) is an opinionated boilerplate for building RESTful APIs in Go. It's designed for small to medium scale projects where you want to skip the repetitive setup and jump straight into building business logic.
+
+### Why I Built It
+
+Every new Go API project starts with the same ritual: pick a router, set up middleware, configure a database connection, add environment variable loading, choose a logger. This starter bundles all of that into a ready-to-go foundation so you can focus on what matters.
+
+### Stack
+
+- **[Chi](https://github.com/go-chi/chi)** — Lightweight, idiomatic HTTP router
+- **[GORM](https://gorm.io/)** — ORM for MySQL with migrations
+- **[Logrus](https://github.com/sirupsen/logrus)** — Structured logging
+- **[Viper](https://github.com/spf13/viper)** — Configuration management
+- **[godotenv](https://github.com/joho/godotenv)** — Environment variable loading
+
+### Features
+
+- Auto-reload during development via a shell script with `entr`
+- Production-ready Nginx configuration included
+- Simple `make` commands for building and running
+- Clean project structure following Go conventions
+
+### Getting Started
+
+```bash
+make
+make build
+./autoreload.sh
+```
+
+### Links
+
+- [GitHub Repository](https://github.com/xceejay/rest-api-starter)

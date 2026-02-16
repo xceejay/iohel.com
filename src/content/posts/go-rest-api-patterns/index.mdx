@@ -1,0 +1,114 @@
+---
+title: Patterns I Use in Every Go REST API
+date: 2025-06-10
+seo:
+  title: Patterns I Use in Every Go REST API
+  description: Practical patterns for building REST APIs in Go with Chi, GORM, and structured logging
+  type: article
+  keywords: golang, rest api, chi, gorm, patterns, backend development
+---
+
+After building several Go APIs — from [DonatePal](https://github.com/xceejay/donatepal), a full-stack donation manager, to the [REST API Starter](https://github.com/xceejay/rest-api-starter) that I now use as a foundation for new projects — I've settled on a set of patterns that I reach for every time.
+
+These aren't groundbreaking. They're the boring, reliable choices that let you ship faster and debug easier.
+
+## Chi for Routing
+
+I've tried `gorilla/mux`, `gin`, `echo`, and `fiber`. I keep coming back to [Chi](https://github.com/go-chi/chi). It's compatible with `net/http`, which means any middleware written for the standard library works with it. No framework lock-in.
+
+```go
+r := chi.NewRouter()
+r.Use(middleware.Logger)
+r.Use(middleware.Recoverer)
+r.Use(middleware.Timeout(60 * time.Second))
+
+r.Route("/api/v1", func(r chi.Router) {
+    r.Get("/fundraisers", listFundraisers)
+    r.Post("/fundraisers", createFundraiser)
+    r.Get("/fundraisers/{id}", getFundraiser)
+})
+```
+
+Chi's middleware stack is composable. You can scope middleware to specific route groups. Authentication on `/admin` routes but not on `/public`? One line.
+
+## GORM With Caution
+
+[GORM](https://gorm.io/) is convenient but can hide what's happening at the database level. I use it for straightforward CRUD and migrations, but drop to raw SQL for anything involving joins, aggregations, or performance-sensitive queries.
+
+```go
+// Fine for simple queries
+db.Where("status = ?", "active").Find(&fundraisers)
+
+// For anything complex, use raw SQL
+db.Raw("SELECT f.*, SUM(d.amount) as total FROM fundraisers f LEFT JOIN donations d ON f.id = d.fundraiser_id GROUP BY f.id").Scan(&results)
+```
+
+The migration system is useful for development but I wouldn't rely on it for production schema changes. A dedicated migration tool like `golang-migrate` gives you more control.
+
+## Environment Configuration
+
+Every API needs to read configuration from environment variables. I use [godotenv](https://github.com/joho/godotenv) for local development and [Viper](https://github.com/spf13/viper) when I need more structure (config files, remote config sources, watching for changes).
+
+```go
+// .env for local dev
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=donatepal
+API_PORT=8080
+
+// Load in main.go
+godotenv.Load()
+port := os.Getenv("API_PORT")
+```
+
+The rule is simple: never hardcode configuration. Even if you're the only person who will ever run the project, future you will thank present you when you need to deploy to a different environment.
+
+## Structured Logging With Logrus
+
+`fmt.Println` is not logging. [Logrus](https://github.com/sirupsen/logrus) gives you structured fields, log levels, and formatters out of the box.
+
+```go
+log.WithFields(log.Fields{
+    "fundraiser_id": id,
+    "amount":        amount,
+    "donor":         donor.Email,
+}).Info("Donation received")
+```
+
+In production, switch to JSON formatting so your logs can be parsed by whatever monitoring tool you use. In development, the default text formatter is readable enough.
+
+## Project Structure
+
+After enough projects, I've settled on a flat-ish structure:
+
+```
+.
+├── cmd/            # Entry points
+├── config/         # Nginx, deployment configs
+├── handlers/       # HTTP handlers
+├── models/         # Database models
+├── middleware/     # Custom middleware
+├── .env            # Local config
+├── Makefile        # Build commands
+└── autoreload.sh  # Dev auto-reload
+```
+
+Go doesn't need deep nesting. A `handlers` package, a `models` package, and a `middleware` package cover most small-to-medium APIs. Only split further when you genuinely need to.
+
+## Auto-Reload in Development
+
+Go compiles fast, but manually stopping, rebuilding, and restarting your server on every change breaks flow. I use `entr` to watch for file changes and restart automatically:
+
+```bash
+find . -name '*.go' | entr -r go run cmd/main.go
+```
+
+This is wrapped in `autoreload.sh` in the starter kit. It's a small quality-of-life improvement that compounds over a development session.
+
+## What I Skip
+
+- **Dependency injection frameworks.** In Go, pass dependencies explicitly. A constructor function that takes a `*gorm.DB` and returns a handler struct is all you need.
+- **Code generation for routes.** The routing layer is small enough to write by hand. Generating it adds complexity without meaningful benefit at this scale.
+- **Microservice patterns for monolith-sized projects.** If your API fits in one binary, ship one binary.
+
+These patterns are baked into the [REST API Starter](https://github.com/xceejay/rest-api-starter). Fork it, delete what you don't need, and build from there.

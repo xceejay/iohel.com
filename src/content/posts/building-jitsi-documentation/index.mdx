@@ -1,0 +1,47 @@
+---
+title: What Building Jitsi Documentation Taught Me About Open Source
+date: 2025-02-15
+seo:
+  title: What Building Jitsi Documentation Taught Me About Open Source
+  description: Lessons from creating docs.easyjitsi.com and growing it to 155+ GitHub stars
+  type: article
+  keywords: jitsi, documentation, open source, video conferencing, devrel
+---
+
+In April 2020, the world shifted online overnight. Video conferencing went from a convenience to a necessity. Zoom was everywhere, but organizations that needed control over their data — hospitals, governments, schools — were looking for self-hosted alternatives. Jitsi Meet was the answer. The problem was getting it running.
+
+## The Documentation Gap
+
+Jitsi is a mature, capable platform. But its documentation was fragmented. The official handbook covered the basics, but deploying Jitsi in production — with recording, scaling across multiple video bridges, authentication, and SRTP security — required stitching together knowledge from GitHub issues, forum threads, and blog posts in varying states of freshness.
+
+I was deploying Jitsi for projects and kept hitting the same walls. Each time I figured something out, I wrote it down. Eventually those notes became [Easy Jitsi](https://docs.easyjitsi.com).
+
+## Starting Small
+
+The first version was bare. Installation steps for Ubuntu, basic Nginx configuration, and a guide for enabling Jibri (Jitsi's recording component). I published it on GitHub and shared it in a couple of Jitsi community channels.
+
+The response was immediate. People were deploying Jitsi for the first time and struggling with the same things I had struggled with. Pull requests started coming in — typo fixes at first, then full guides contributed by people who had solved problems I hadn't encountered.
+
+## What Worked
+
+**Structure over completeness.** I organized the docs by what someone would actually need to do: install, configure, secure, scale, record. Not by component or API surface. People don't arrive at documentation knowing the architecture. They arrive with a goal.
+
+**Docusaurus was the right tool.** It's opinionated about documentation structure, which meant contributors could focus on content instead of figuring out where things go. The sidebar navigation, search, and versioning came for free.
+
+**Accepting that docs are never done.** Jitsi changes. Ubuntu versions change. Cloud providers change their interfaces. Documentation is maintenance, not a one-time effort. The repos that thrive are the ones where someone responds to issues and keeps things current.
+
+## What I'd Do Differently
+
+I'd write more about failure modes. Most documentation tells you what to do when things work. The real value is in troubleshooting: what does it look like when Jibri can't connect? What logs should you check when video bridges aren't scaling? That's the knowledge people need most and it's the hardest to document because you have to break things intentionally.
+
+## The Numbers
+
+As of today, the Easy Jitsi documentation has over **155 stars** on GitHub and has been forked 13 times. The companion project, [Awesome Jitsi](https://awesome-jitsi.com), has **51+ stars** as a curated list of tools and resources in the Jitsi ecosystem.
+
+But the number I care about more is the one I can't measure: how many people successfully deployed Jitsi because the docs made it less intimidating. Based on the issues, emails, and messages I've received, it's more than a few.
+
+## The Takeaway
+
+The best documentation comes from someone who recently struggled with the thing they're documenting. Experts forget what's confusing. Beginners don't know what to ask. The sweet spot is right after you've figured something out and can still remember what it felt like not to know.
+
+If you're deploying Jitsi or building on top of it, check out [docs.easyjitsi.com](https://docs.easyjitsi.com). And if you find something that's wrong or missing, open a PR. That's how it got to where it is.

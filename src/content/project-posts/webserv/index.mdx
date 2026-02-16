@@ -1,0 +1,32 @@
+---
+title: Web Server in C
+date: 2025-04-12
+seo:
+  title: Building a Web Server in C
+  description: A minimal web server built from scratch in C to understand HTTP internals
+  type: article
+  keywords: c, web server, http, networking, systems programming
+---
+
+## Understanding HTTP from the Ground Up
+
+[Webserv](https://github.com/xceejay/webserv) is a minimal HTTP server written in C. The goal was straightforward: understand how web servers actually work by building one from scratch.
+
+### What I Learned
+
+Building a web server in C strips away every abstraction. You deal directly with:
+
+- **Socket programming** — Creating, binding, and listening on TCP sockets
+- **HTTP parsing** — Reading raw bytes and extracting method, path, headers, and body
+- **Concurrency** — Handling multiple clients without blocking
+- **Memory management** — No garbage collector, no runtime safety net
+
+Most developers interact with HTTP through high-level frameworks. Writing a server in C forces you to understand what those frameworks are doing underneath. Every `Content-Length` header, every `\r\n` line ending, every `Connection: keep-alive` — you handle it all manually.
+
+### Why C?
+
+Go, Rust, and Python all have excellent HTTP libraries. But C is where the web started. Apache, Nginx, and most of the internet's infrastructure were written in C. Building a server in C connects you directly to that lineage.
+
+### Links
+
+- [GitHub Repository](https://github.com/xceejay/webserv)
