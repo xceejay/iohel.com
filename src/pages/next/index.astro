@@ -59,6 +59,14 @@ const items: ArchiveItem[] = [
 
 // Sort newest first
 items.sort((a, b) => b.date.valueOf() - a.date.valueOf());
+
+const tagColors: Record<string, string> = {
+  note: 'bg-blue-200/40 text-blue-800 dark:bg-blue-800/30 dark:text-blue-300',
+  project: 'bg-green-200/40 text-green-800 dark:bg-green-800/30 dark:text-green-300',
+  work: 'bg-amber-200/40 text-amber-800 dark:bg-amber-800/30 dark:text-amber-300',
+  talk: 'bg-purple-200/40 text-purple-800 dark:bg-purple-800/30 dark:text-purple-300',
+  'old post': 'bg-rose-200/40 text-rose-800 dark:bg-rose-800/30 dark:text-rose-300',
+};
 ---
 
 <BaseLayout seo={entry.data.seo}>
@@ -78,12 +86,18 @@ items.sort((a, b) => b.date.valueOf() - a.date.valueOf());
                 {item.url ? (
                   <a href={item.url} class="flex flex-col">
                     <span class="text-headings font-medium">{item.title}</span>
-                    <span class="text-muted-foreground">{item.type}{item.subtitle ? ` · ${item.subtitle}` : ''}</span>
+                    <span class="flex items-center gap-2 text-muted-foreground">
+                      <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type] || ''}`}>{item.type}</span>
+                      {item.subtitle && <span>{item.subtitle}</span>}
+                    </span>
                   </a>
                 ) : (
                   <div class="flex flex-col">
                     <span class="text-headings font-medium">{item.title}</span>
-                    <span class="text-muted-foreground">{item.type}{item.subtitle ? ` · ${item.subtitle}` : ''}</span>
+                    <span class="flex items-center gap-2 text-muted-foreground">
+                      <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type] || ''}`}>{item.type}</span>
+                      {item.subtitle && <span>{item.subtitle}</span>}
+                    </span>
                   </div>
                 )}
               </div>
