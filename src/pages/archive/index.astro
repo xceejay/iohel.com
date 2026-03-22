@@ -119,8 +119,12 @@ const tagColors: Record<string, string> = {
               <div class="flex flex-col">
                 {item.url ? (
                   <a href={item.url} class="flex items-center gap-3">
-                    {item.thumbnail && (
+                    {item.thumbnail ? (
                       <img src={item.thumbnail} alt={item.title} class="w-12 h-12 object-cover rounded-md shrink-0" />
+                    ) : (
+                      <div class={`w-12 h-12 rounded-md shrink-0 flex items-center justify-center text-sm font-bold ${tagColors[item.type] || ''}`}>
+                        {item.type.charAt(0).toUpperCase()}
+                      </div>
                     )}
                     <div class="flex flex-col">
                       <span class="text-headings font-medium">{item.title}</span>
@@ -131,12 +135,17 @@ const tagColors: Record<string, string> = {
                     </div>
                   </a>
                 ) : (
-                  <div class="flex flex-col">
-                    <span class="text-headings font-medium">{item.title}</span>
-                    <span class="flex items-center gap-2 text-muted-foreground">
-                      <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type] || ''}`}>{item.type}</span>
-                      {item.subtitle && <span>{item.subtitle}</span>}
-                    </span>
+                  <div class="flex items-center gap-3">
+                    <div class={`w-12 h-12 rounded-md shrink-0 flex items-center justify-center text-sm font-bold ${tagColors[item.type] || ''}`}>
+                      {item.type.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="flex flex-col">
+                      <span class="text-headings font-medium">{item.title}</span>
+                      <span class="flex items-center gap-2 text-muted-foreground">
+                        <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type] || ''}`}>{item.type}</span>
+                        {item.subtitle && <span>{item.subtitle}</span>}
+                      </span>
+                    </div>
                   </div>
                 )}
               </div>
