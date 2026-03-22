@@ -1,4 +1,6 @@
 ---
+import { execSync } from 'child_process';
+import type { ImageMetadata } from 'astro';
 import { getCollection, getEntry } from 'astro:content';
 import Container from '@/components/Container.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -12,6 +14,36 @@ const notes = await getCollection('posts');
 const projects = await getCollection('project-posts');
 const jobs = await getCollection('jobs');
 const talks = await getCollection('talks');
+
+// Photos with git first-commit dates
+const photoGlob = import.meta.glob<{ default: ImageMetadata }>(
+  '../../content/photos/*.{jpg,jpeg,png,webp,avif}'
+);
+
+const photoItems = await Promise.all(
+  Object.entries(photoGlob).map(async ([path, mod]) => {
+    const { default: imageData } = await mod();
+    const filename = path.split('/').pop() ?? '';
+    const repoPath = `src/content/photos/${filename}`;
+    let date: Date;
+    try {
+      const gitDate = execSync(
+        `git log --follow --format="%ai" -- "${repoPath}" | tail -1`,
+        { cwd: process.cwd() }
+      ).toString().trim();
+      date = gitDate ? new Date(gitDate) : new Date();
+    } catch {
+      date = new Date();
+    }
+    const name = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+    return {
+      type: 'photo',
+      title: name.replace(/\b\w/g, c => c.toUpperCase()),
+      date,
+      url: '/photography',
+    };
+  })
+);
 
 // Normalize everything into one timeline
 type ArchiveItem = {
@@ -55,6 +87,7 @@ const items: ArchiveItem[] = [
     url: t.data.url,
     subtitle: `${t.data.event}, ${t.data.location}`,
   })),
+  ...photoItems,
 ];
 
 // Sort newest first
@@ -66,6 +99,7 @@ const tagColors: Record<string, string> = {
   work: 'bg-amber-200/40 text-amber-800 dark:bg-amber-800/30 dark:text-amber-300',
   talk: 'bg-purple-200/40 text-purple-800 dark:bg-purple-800/30 dark:text-purple-300',
   'old post': 'bg-rose-200/40 text-rose-800 dark:bg-rose-800/30 dark:text-rose-300',
+  photo: 'bg-pink-200/40 text-pink-800 dark:bg-pink-800/30 dark:text-pink-300',
 };
 ---
 

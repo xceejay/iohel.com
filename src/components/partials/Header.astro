@@ -7,7 +7,7 @@ const isHomePage = pathname === "/";
 const isWritingPage = pathname.startsWith("/writing");
 const isProjectsPage = pathname.startsWith("/projects");
 const isPhotographyPage = pathname.startsWith("/photography");
-const isNextPage = pathname.startsWith("/next");
+const isArchivePage = pathname.startsWith("/archive");
 
 ---
 <Container as="header" class="w-full flex justify-center items-center">
@@ -70,11 +70,11 @@ const isNextPage = pathname.startsWith("/next");
 
           <li>
             <a
-              href="/next"
+              href="/archive"
               class:list={[
                 "font-medium transition-colors block px-2 py-1 text-xl",
                 "hover:text-headings",
-                isNextPage && "text-headings bg-muted-foreground/40",
+                isArchivePage && "text-headings bg-muted-foreground/40",
               ]}
             >
               Archive
