@@ -1,0 +1,28 @@
+# Joel Amoako
+
+> AI & Software Engineer and consultant helping businesses build AI-powered software, workflow automation, and scalable backend systems.
+
+## About
+
+Joel Amoako is a software engineer and AI consultant based in Accra, Ghana. He builds production AI systems, workflow automation with n8n and Zapier, and scalable backend APIs in Go and Node.js. He also runs Cycas Labs, a software consultancy.
+
+## Writing
+
+- [Patterns I Use in Every Go REST API](https://iohel.com/writing/go-rest-api-patterns/) — Practical patterns for building REST APIs in Go with Chi, GORM, and structured logging
+- [What Building Jitsi Documentation Taught Me About Open Source](https://iohel.com/writing/building-jitsi-documentation/) — Lessons from creating docs.easyjitsi.com and growing it to 155+ GitHub stars
+- [Building in the Open](https://iohel.com/writing/open-source-journey/) — Reflections on maintaining open source projects
+
+## Projects
+
+- [Easy Jitsi Documentation](https://iohel.com/projects/easy-jitsi-docs/) — Comprehensive Jitsi Meet deployment documentation, 155+ GitHub stars
+- [DonatePal](https://iohel.com/projects/donatepal/) — Full-stack donation management suite built with Go
+- [REST API Starter Kit (Go)](https://iohel.com/projects/rest-api-starter/) — Opinionated Go REST API boilerplate
+- [Web Server in C](https://iohel.com/projects/webserv/) — Minimal HTTP server built from scratch in C
+- [Awesome Jitsi](https://iohel.com/projects/awesome-jitsi/) — Curated list of Jitsi resources
+
+## Contact
+
+- Website: https://iohel.com
+- GitHub: https://github.com/xceejay
+- Bluesky: https://bsky.app/profile/iohel.com
+- Email: joelkofiamoako@protonmail.com

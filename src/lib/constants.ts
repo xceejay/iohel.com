@@ -34,7 +34,7 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
     pronouns: undefined,
   },
   seo: {
-    title: 'My section of the internet',
+    title: 'Joel Amoako | AI & Software Engineer',
     description: 'AI engineer and consultant building AI-powered software, workflow automation, and scalable backend systems for businesses worldwide',
     type: 'website',
     image: MetaDefaultImage,
