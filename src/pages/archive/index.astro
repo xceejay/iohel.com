@@ -9,7 +9,7 @@ import { formatDate } from '@/lib/utils';
 const entry = await getEntry('pages', 'archive');
 
 // Pull from every collection
-const blogPosts = await getCollection('blog');
+
 const notes = await getCollection('posts');
 const projects = await getCollection('project-posts');
 const jobs = await getCollection('jobs');
@@ -57,12 +57,7 @@ type ArchiveItem = {
 };
 
 const items: ArchiveItem[] = [
-  ...blogPosts.map(p => ({
-    type: 'old post',
-    title: p.data.title,
-    date: p.data.pubDate,
-    url: `/blog/${p.id}/`,
-  })),
+
   ...notes.map(p => ({
     type: 'note',
     title: p.data.title,
