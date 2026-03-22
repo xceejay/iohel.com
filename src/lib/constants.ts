@@ -28,13 +28,13 @@ export const DEFAULT_CONFIGURATION: DefaultConfigurationType = {
   author: {
     avatar,
     name: 'Joel Amoako',
-    headline: 'AI & Software Engineering',
+    headline: 'Software Engineering',
     username: 'xceejay',
     location: 'Ghana, Accra',
     pronouns: undefined,
   },
   seo: {
-    title: 'Joel Amoako | AI & Software Engineer',
+    title: 'Joel Amoako | Software Engineer',
     description: 'AI engineer and consultant building AI-powered software, workflow automation, and scalable backend systems for businesses worldwide',
     type: 'website',
     image: MetaDefaultImage,
