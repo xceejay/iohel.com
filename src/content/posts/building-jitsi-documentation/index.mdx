@@ -9,40 +9,38 @@ seo:
   keywords: jitsi, documentation, open source, video conferencing, devrel
 ---
 
-In April 2020, the world shifted online overnight. Video conferencing went from a convenience to a necessity. Zoom was everywhere, but organizations that needed control over their data, like hospitals, governments, and schools, were looking for self-hosted alternatives. Jitsi Meet was the answer. The problem was getting it running.
+April 2020. Video conferencing went from optional to mandatory in two weeks. Zoom was everywhere, but hospitals, governments, and schools needed self-hosted options. Jitsi Meet was the answer. Getting it running was not.
 
 ## The Documentation Gap
 
-Jitsi is a mature, capable platform. But its documentation was fragmented. The official handbook covered the basics, but deploying Jitsi in production with recording, scaling across multiple video bridges, authentication, and SRTP security meant stitching together knowledge from GitHub issues, forum threads, and blog posts in varying states of freshness.
-
-I was deploying Jitsi for projects and kept hitting the same walls. Each time I figured something out, I wrote it down. Eventually those notes became [Easy Jitsi](https://docs.easyjitsi.com).
+Jitsi's official docs covered basics. Production deployments — with recording, multiple video bridges, authentication, SRTP — required stitching together GitHub issues, stale forum threads, and half-updated blog posts. I was deploying Jitsi for projects and kept hitting the same walls. Each time I solved something, I wrote it down. Those notes became [Easy Jitsi](https://docs.easyjitsi.com).
 
 ## Starting Small
 
-The first version was bare. Installation steps for Ubuntu, basic Nginx configuration, and a guide for enabling Jibri (Jitsi's recording component). I published it on GitHub and shared it in a couple of Jitsi community channels.
+The first version covered three things: Ubuntu installation, Nginx config, and Jibri setup for recording. I posted it in a few Jitsi community channels.
 
-The response was immediate. People were deploying Jitsi for the first time and struggling with the same things I had struggled with. Pull requests started coming in. Typo fixes at first, then full guides contributed by people who had solved problems I hadn't encountered.
+Pull requests came within days. Typo fixes first, then full guides from people who'd solved problems I hadn't hit yet. The documentation grew because people were deploying Jitsi and found it useful enough to improve.
 
 ## What Worked
 
-**Structure over completeness.** I organized the docs by what someone would actually need to do: install, configure, secure, scale, record. Not by component or API surface. People don't arrive at documentation knowing the architecture. They arrive with a goal.
+**Structure over completeness.** I organized by task: install, configure, secure, scale, record. Not by component. People don't arrive at documentation knowing the architecture. They arrive with a goal.
 
-**Docusaurus was the right tool.** It's opinionated about documentation structure, which meant contributors could focus on content instead of figuring out where things go. The sidebar navigation, search, and versioning came for free.
+**Docusaurus.** It's opinionated about structure, which meant contributors could focus on content. Sidebar navigation, search, and versioning came for free.
 
-**Accepting that docs are never done.** Jitsi changes. Ubuntu versions change. Cloud providers change their interfaces. Documentation is maintenance, not a one-time effort. The repos that thrive are the ones where someone responds to issues and keeps things current.
+**Treating docs as maintenance.** Jitsi changes. Ubuntu versions change. Cloud provider interfaces change. The repos that stay useful are the ones with someone responding to issues.
 
 ## What I'd Do Differently
 
-I'd write more about failure modes. Most documentation tells you what to do when things work. The real value is in troubleshooting: what does it look like when Jibri can't connect? What logs should you check when video bridges aren't scaling? That's the knowledge people need most and it's the hardest to document because you have to break things intentionally.
+More failure mode coverage. Good documentation tells you what to do when things work. Real value is in troubleshooting: what does it look like when Jibri can't connect? Which logs to check when video bridges stop scaling? That knowledge is the hardest to write because you have to break things on purpose.
 
 ## The Numbers
 
-As of today, the Easy Jitsi documentation has over **155 stars** on GitHub and has been forked 13 times. The companion project, [Awesome Jitsi](https://awesome-jitsi.com), has **51+ stars** as a curated list of tools and resources in the Jitsi ecosystem.
+155 stars on GitHub, 13 forks. The companion project [Awesome Jitsi](https://awesome-jitsi.com) has 51+ stars.
 
-But the number I care about more is the one I can't measure: how many people successfully deployed Jitsi because the docs made it less intimidating. Based on the issues, emails, and messages I've received, it's more than a few.
+The number I can't measure: how many people deployed Jitsi because the docs made it less intimidating. Based on issues and messages, it's more than a few.
 
 ## The Takeaway
 
-The best documentation comes from someone who recently struggled with the thing they're documenting. Experts forget what's confusing. Beginners don't know what to ask. The sweet spot is right after you've figured something out and can still remember what it felt like not to know.
+The best documentation comes from someone who recently struggled with what they're documenting. Experts forget what's confusing. Beginners don't know what to ask. The sweet spot is right after you've figured something out and can still remember what not knowing felt like.
 
-If you're deploying Jitsi or building on top of it, check out [docs.easyjitsi.com](https://docs.easyjitsi.com). And if you find something that's wrong or missing, open a PR. That's how it got to where it is.
+If you're deploying Jitsi, check out [docs.easyjitsi.com](https://docs.easyjitsi.com). If something is wrong or missing, open a PR.
