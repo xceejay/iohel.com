@@ -5,7 +5,7 @@ import { type Seo } from '@/lib/constants';
 import Header from '@/components/partials/Header.astro';
 import Footer from '@/components/partials/Footer.astro';
 import Head from '@/components/partials/Head.astro';
-import SwitchTheme from '@/components/SwitchTheme.tsx';
+import SwitchTheme from '@/components/SwitchTheme.astro';
 
 interface Props {
   seo?: Seo
@@ -22,6 +22,6 @@ const { seo } = Astro.props;
       <slot />
     </main>
     <Footer />
-    <SwitchTheme client:only="react" />
+    <SwitchTheme />
   </body>
 </html>
