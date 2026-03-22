@@ -41,6 +41,7 @@ const photoItems = await Promise.all(
       title: name.replace(/\b\w/g, c => c.toUpperCase()),
       date,
       url: '/photography',
+      thumbnail: imageData.src,
     };
   })
 );
@@ -52,6 +53,7 @@ type ArchiveItem = {
   date: Date;
   url?: string;
   subtitle?: string;
+  thumbnail?: string;
 };
 
 const items: ArchiveItem[] = [
@@ -118,12 +120,17 @@ const tagColors: Record<string, string> = {
               </div>
               <div class="flex flex-col">
                 {item.url ? (
-                  <a href={item.url} class="flex flex-col">
-                    <span class="text-headings font-medium">{item.title}</span>
-                    <span class="flex items-center gap-2 text-muted-foreground">
-                      <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type] || ''}`}>{item.type}</span>
-                      {item.subtitle && <span>{item.subtitle}</span>}
-                    </span>
+                  <a href={item.url} class="flex items-center gap-3">
+                    {item.thumbnail && (
+                      <img src={item.thumbnail} alt={item.title} class="w-12 h-12 object-cover rounded-md shrink-0" />
+                    )}
+                    <div class="flex flex-col">
+                      <span class="text-headings font-medium">{item.title}</span>
+                      <span class="flex items-center gap-2 text-muted-foreground">
+                        <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${tagColors[item.type] || ''}`}>{item.type}</span>
+                        {item.subtitle && <span>{item.subtitle}</span>}
+                      </span>
+                    </div>
                   </a>
                 ) : (
                   <div class="flex flex-col">
