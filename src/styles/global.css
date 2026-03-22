@@ -20,17 +20,17 @@
   --palette-base: #fff;
 
   /* Warm brown neutrals — same hue as dark mode (26.283) but light */
-  --palette-50:  oklch(0.95 0.008 26.283); /* warm cream background */
-  --palette-100: oklch(0.91 0.010 26.283);
-  --palette-200: oklch(0.86 0.013 26.283);
-  --palette-300: oklch(0.80 0.016 26.283);
-  --palette-400: oklch(0.72 0.018 26.283);
-  --palette-500: oklch(0.63 0.018 26.283);
-  --palette-600: oklch(0.54 0.016 26.283);
-  --palette-700: oklch(0.45 0.014 26.283);
-  --palette-800: oklch(0.37 0.013 26.283);
-  --palette-900: oklch(0.29 0.012 26.283);
-  --palette-950: oklch(0.22 0.010 26.283);
+  --palette-50:  oklch(0.95 0.012 26.283); /* warm cream background */
+  --palette-100: oklch(0.91 0.016 26.283);
+  --palette-200: oklch(0.86 0.022 26.283);
+  --palette-300: oklch(0.80 0.028 26.283);
+  --palette-400: oklch(0.72 0.034 26.283);
+  --palette-500: oklch(0.63 0.038 26.283);
+  --palette-600: oklch(0.54 0.040 26.283);
+  --palette-700: oklch(0.45 0.038 26.283);
+  --palette-800: oklch(0.37 0.034 26.283);
+  --palette-900: oklch(0.29 0.030 26.283);
+  --palette-950: oklch(0.22 0.026 26.283);
 }
 
 .dark {
