@@ -68,12 +68,14 @@ const items: ArchiveItem[] = [
     title: p.data.title,
     date: p.data.date,
     url: `/writing/${p.id}/`,
+    thumbnail: p.data.image?.src,
   })),
   ...projects.map(p => ({
     type: 'project',
     title: p.data.title,
     date: p.data.date,
     url: `/projects/${p.id}/`,
+    thumbnail: p.data.image?.src,
   })),
   ...jobs.map(j => ({
     type: 'work',
