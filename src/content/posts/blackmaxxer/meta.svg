@@ -1,0 +1,21 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0B0B0C"/>
+  <rect x="54" y="54" width="1092" height="522" rx="24" fill="#111214" stroke="#2A2C31" stroke-width="2"/>
+  <rect x="102" y="112" width="250" height="26" rx="13" fill="#1C1E23"/>
+  <text x="102" y="92" fill="#B8A16A" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="0.18em">BLACKMAXXER</text>
+  <text x="102" y="212" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="800">Why I Built</text>
+  <text x="102" y="286" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="800">Blackmaxxer</text>
+  <text x="102" y="362" fill="#C9CDD4" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500">Facial analysis for Black men and women,</text>
+  <text x="102" y="402" fill="#C9CDD4" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500">without forcing Eurocentric standards</text>
+  <text x="102" y="442" fill="#C9CDD4" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="500">into the scoring.</text>
+
+  <rect x="760" y="128" width="300" height="360" rx="20" fill="#15171B" stroke="#343842"/>
+  <circle cx="910" cy="220" r="58" fill="#1F232A"/>
+  <path d="M858 330C858 288.578 891.578 255 933 255H887C928.422 255 962 288.578 962 330V336H858V330Z" fill="#1F232A"/>
+  <path d="M828 394C828 349.817 863.817 314 908 314H912C956.183 314 992 349.817 992 394V448H828V394Z" fill="#C7A15C" fill-opacity="0.95"/>
+  <rect x="806" y="470" width="208" height="12" rx="6" fill="#2B2E35"/>
+  <rect x="806" y="498" width="162" height="12" rx="6" fill="#2B2E35"/>
+
+  <rect x="102" y="492" width="182" height="44" rx="22" fill="#B08A45"/>
+  <text x="135" y="521" fill="#111214" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">iohel.com</text>
+</svg>
