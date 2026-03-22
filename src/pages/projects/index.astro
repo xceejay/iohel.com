@@ -7,7 +7,7 @@ import { DEFAULT_CONFIGURATION } from '@/lib/constants';
 import ProjectPostPreview from '@/components/ui/ProjectPostPreview.astro';
 
 const entry = await getEntry('pages', 'projects');
-const posts = await getCollection('project-posts');
+const posts = (await getCollection('project-posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout seo={entry.data.seo}>
