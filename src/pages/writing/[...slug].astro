@@ -54,11 +54,11 @@ const articleJsonLd = JSON.stringify({
         <h1 class="text-3xl font-semibold text-headings font-serif">{entry.data.title}</h1>
       </div>
       {entry.data.image && (
-        <div class="relative aspect-video overflow-hidden rounded-lg">
+        <div class="relative aspect-[4/3] overflow-hidden rounded-lg">
           <Image
             src={entry.data.image}
             alt={entry.data.title}
-            class="object-cover"
+            class="object-cover object-top"
           />
         </div>
       )}
