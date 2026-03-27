@@ -138,6 +138,33 @@ I chose NATS because:
 - the Go client is solid
 - you get per-message time-to-live support for free
 
+## A concrete example: the ride-hailing demo
+
+The easiest way to see this engine in real life is the small ride-hailing demo I built on top of it. One ride request becomes six separate events:
+
+- RIDE_REQUESTED
+- DRIVER_MATCHED
+- DRIVER_ARRIVED
+- TRIP_STARTED
+- TRIP_COMPLETED
+- PAYMENT_PROCESSED
+
+Each step has its own configuration for retries and timing. When one step succeeds, the worker reports success and asks the engine to publish the next event in the chain. If a step fails, the engine can retry just that step without losing the overall ride.
+
+On the live demo the HTML UI connects to the engine and shows one ride at a time moving through those stages. You can request a ride, watch the events appear, fail, retry, and eventually complete.
+
+### Where this pattern shows up in payments
+
+Payment systems follow a similar pattern. A single purchase might involve:
+
+- creating a payment attempt
+- sending it to a card network or PSP
+- waiting for a callback
+- capturing funds
+- issuing a receipt or notification
+
+Each step needs to be idempotent and recoverable so that if a request or callback is retried, money is not charged twice and no payments are lost. An event-driven engine gives you a place to store that state, apply retry rules, and recover cleanly after failures.
+
 ## How this helped me understand event-driven systems
 
 A few things clicked for me while building this:
