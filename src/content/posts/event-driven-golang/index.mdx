@@ -104,7 +104,13 @@ This part of the code knows the rules for state changes. For example:
 - from `dispatched` you can go to `being processed`
 - from `being processed` you can go to `succeeded` or `failed`
 
-When a worker reports success or failure, the lifecycle service checks that the move is valid and updates the database. If a job fails, it also decides whether to retry it or give up based on the configuration for that event type.
+Every event type gets a configuration row in MySQL. That config says things like:
+
+- how many attempts are allowed
+- how long the event can live before it expires
+- how long to wait before the first and later attempts
+
+When you publish an event the lifecycle service looks up that config, calculates the first scheduled time and expiry, and writes both the event row and its payload. When a worker reports success or failure, the lifecycle service checks that the move is valid, updates the row, and decides whether to retry or stop based on that same configuration.
 
 ### Storage
 
@@ -138,6 +144,29 @@ I chose NATS because:
 - the Go client is solid
 - you get per-message time-to-live support for free
 
+## How one event moves through the system
+
+Take a single `RIDE_REQUESTED` event.
+
+1. The UI calls `POST /api/events` with:
+   - `event_type = "RIDE_REQUESTED"`
+   - `flow_type = "FLOW_B"` for rides
+   - a `flow_id` that identifies the ride
+   - a JSON payload with pickup and destination
+2. The server validates the body and asks the lifecycle service to publish the event.
+3. The lifecycle service loads the config for `RIDE_REQUESTED`, calculates when the first attempt should run and when the event should expire, and inserts two rows:
+   - one in the `event` table with state `awaiting processing`
+   - one in the `event_payload` table with the JSON payload
+4. A scheduled job wakes up, finds events that are due, and marks them as `dispatched`.
+5. For each dispatched event it publishes a message to NATS on a subject like `event-engine.flow_b` with a copy of the event ID and payload.
+6. The ride adapter receives that message and calls `POST /api/events/{id}/acquire` to lock the event and fetch the payload.
+7. After doing its work the adapter calls either:
+   - `POST /api/events/{id}/success` with optional spinoff events, or
+   - `POST /api/events/{id}/failure` with an error message.
+8. The lifecycle service updates the event row based on that call and, if there were spinoff events, publishes those as brand new events in the same flow.
+
+The same pattern works for email, payouts, or anything else that moves through a few clear states and needs retries.
+
 ## A concrete example: the ride-hailing demo
 
 The easiest way to see this engine in real life is the small ride-hailing demo I built on top of it. One ride request becomes six separate events:
@@ -163,7 +192,15 @@ Payment systems follow a similar pattern. A single purchase might involve:
 - capturing funds
 - issuing a receipt or notification
 
-Each step needs to be idempotent and recoverable so that if a request or callback is retried, money is not charged twice and no payments are lost. An event-driven engine gives you a place to store that state, apply retry rules, and recover cleanly after failures.
+Each step needs to be idempotent and recoverable so that if a request or callback is retried, money is not charged twice and no payments are lost.
+
+An engine like this gives you:
+
+- a table that records the current state of each payment attempt
+- retry rules that live in one place instead of being scattered in handlers
+- a single API for workers to report success or failure, with a clear version and status
+
+You still need to design the payment events carefully, but the mechanics of "move between states and do not lose work" are the same as the ride example.
 
 ## How this helped me understand event-driven systems
 
@@ -176,7 +213,7 @@ A few things clicked for me while building this:
 
 ## If you want to learn from it
 
-If you are new to event-driven ideas and Go, a simple way to use this project is:
+A simple way to use this project is:
 
 1. Clone the repo
 2. Skim the `PLAN.md` to see the intended architecture
