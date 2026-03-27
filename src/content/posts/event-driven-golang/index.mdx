@@ -4,27 +4,36 @@ date: 2026-03-27
 image: ./meta.jpg
 seo:
   title: What I Learned Building an Event-Driven Job Engine in Go
-  description: A hands-on walkthrough of an event-driven job engine in Go using NATS, MySQL, Redis, and a small web UI.
+  description: A simple walkthrough of an event-driven job engine in Go using NATS, MySQL, Redis, and a small web UI.
   type: article
-  keywords: golang, event-driven, background jobs, mcp, nats, mysql, redis
+  keywords: golang, event-driven, background jobs, queues, nats, mysql, redis
 ---
 
-I built this project to understand event-driven architecture in practice, not in diagrams. I wanted to see events move, fail, retry, and recover in a real system I could run on my laptop.
+I built this project to understand event-driven architecture in practice, not just from blog posts. I wanted to see jobs move through a system, fail, retry, and recover in a way I could watch in real time.
 
-The result is a small event-driven job engine in Go. This post is a walkthrough of how it works and what I learned from wiring it together.
+The result is a small event-driven job engine written in Go. This post explains how it works in simple terms so that even an entry-level CS student can follow along.
 
-## The core idea: jobs as events with a lifecycle
+## Why I cared about events in the first place
 
-Most apps grow background jobs like weeds:
+Most real apps have background work:
 
-- one queue for emails
-- another for payouts
-- a cron script that flips flags
-- a random table for retries
+- send an email after a signup
+- charge a card at the end of the month
+- generate a report once a day
 
-Every new case adds another special path.
+When you are in a hurry, this work grows randomly:
 
-Instead, this engine treats each job as an **event** that moves through a lifecycle. The lifecycle I ended up with looks like this:
+- a cron script here
+- a table with a status flag there
+- a queue that only one part of the app knows about
+
+After a while, you have a mess of special cases.
+
+I wanted one consistent model:
+
+> Treat every piece of background work as an **event** that moves through a clear set of states.
+
+That model looks like this:
 
 - awaiting processing
 - dispatched
@@ -34,11 +43,11 @@ Instead, this engine treats each job as an **event** that moves through a lifecy
 - suspended
 - expired
 
-Everything the engine does is just safe movement between these states.
+The engine’s job is to move events safely between these states.
 
-## Running the engine and UI
+## Seeing the engine in action
 
-The repo lives at:
+The code lives here:
 
 - `https://github.com/xceejay/event-driven-golang`
 
@@ -48,99 +57,107 @@ Once you have Go, MySQL, Redis, and NATS running, you can start the engine with:
 make engine
 ```
 
-and open the UI:
+Then open the UI:
 
 ```bash
 open http://localhost:8080
 ```
 
-You will see a simple interface that lists events, their state, and how they move over time.
+You will see a small web page that lists events, their current state, and how they change over time.
 
 ![Event engine UI](./meta.jpg)
 
-The UI connects to the engine over SSE and WebSocket. It is not a full admin console. It is a visual debugger for how the lifecycle behaves.
+The UI connects to the server with server-sent events and WebSocket. It shows you:
 
-## Architecture at a glance
+- when a new event is created
+- when it is picked up for work
+- when it succeeds or fails
+- when it is retried or expires
+
+This turns “event-driven architecture” from a diagram into something you can watch.
+
+## The main pieces in plain language
 
 The engine has four main parts:
 
-1. **MCP server** that exposes tools and resources
-2. **Event lifecycle service** that owns the state machine
-3. **Repositories** for events, payloads, and configuration
-4. **Dispatcher and scheduled jobs** that keep things moving
+1. A **server** that exposes a small API
+2. A **lifecycle service** that knows how events are allowed to move
+3. **Storage** for events, payloads, and configuration
+4. **Workers** that move events forward on a schedule
 
-### MCP tools and resources
+### The server
 
-The MCP server defines tools like:
+The server is a Go HTTP service. It:
 
-- `publish`
-- `acquire_permit`
-- `report_success`
-- `report_failed`
-- `suspend`
-- `unsuspend`
+- accepts new events
+- lets workers ask for work
+- records when events succeed or fail
+- streams live updates to the web UI
 
-and resources such as:
+It also exposes a set of tools using MCP (Model Context Protocol) so AI agents can drive the engine, but you can ignore that detail if you just care about Go and queues.
 
-- a single event by ID
-- pending events for a flow
-- configuration for an event type
-- simple queue metrics
+### The lifecycle service
 
-That lets AI agents or other MCP clients drive the engine without talking directly to the database or NATS.
+This part of the code knows the rules for state changes. For example:
 
-### Persistence and queues
+- from `awaiting processing` you can go to `dispatched`
+- from `dispatched` you can go to `being processed`
+- from `being processed` you can go to `succeeded` or `failed`
 
-The engine stores:
+When a worker reports success or failure, the lifecycle service checks that the move is valid and updates the database. If a job fails, it also decides whether to retry it or give up based on the configuration for that event type.
 
-- events and configuration in **MySQL**
-- payloads in **Redis** (or an in-memory map in development)
-- metrics in memory and **Prometheus**
+### Storage
 
-**NATS** sits on the edge as the message broker. When an event is ready to be processed, the dispatcher publishes it to a NATS subject for the relevant flow. An adapter subscribes, acquires a permit from the engine, does the work, then calls back with success or failure.
+The engine uses:
 
-I chose NATS because it is small, fast, and fits Go well. It also has per message TTL headers built in, which is useful when you do not want old messages hanging around.
+- **MySQL** to store events and configuration
+- **Redis** to store payloads (or an in-memory map in development)
+- **Prometheus** metrics to track queue sizes and processing
 
-## Scheduled jobs as simple goroutines
+You could swap these pieces out, but they are enough to keep the engine simple and real.
 
-Scheduling is handled by a few tight loops in goroutines instead of an external cron system. Each job is just a `time.Ticker` wrapped around repository calls and lifecycle transitions.
+### The workers and NATS
 
-There are jobs for:
+For actual processing the engine uses two things:
 
-- pulling events that are awaiting processing per flow
-- firing scheduled events when they become due
-- expiring suspended events that have sat too long
-- measuring queue sizes for metrics
+- scheduled jobs inside the Go process
+- a NATS message broker on the edge
 
-Keeping this logic inside the engine makes it easier to reason about than a mix of crontabs and scripts.
+The scheduled jobs are just goroutines with `time.Ticker`. They:
 
-## What I learned
+- look for events that are ready to be processed
+- schedule future events when their time comes
+- expire events that have been suspended too long
+- update queue metrics
 
-A few practical lessons from building this:
+When an event is ready, the engine publishes it to a NATS subject. A small adapter subscribes to that subject, does the real work (for example, send an email or hit an external API), and then tells the engine whether it succeeded or failed.
 
-- **A clear lifecycle beats scattered flags.** Once the states were defined, adding new behaviour (like suspension) meant adding transitions, not new boolean fields.
-- **NATS is a good fit for small Go projects.** It kept the broker part simple so I could focus on the engine.
-- **Goroutines and tickers are enough for many “cron” problems.** You do not always need a full scheduler library.
-- **A tiny UI helps.** Seeing events flow in real time caught bugs that logs alone would have hidden.
+I chose NATS because:
 
-## What is next
+- it is small and fast
+- the Go client is solid
+- you get per-message time-to-live support for free
 
-Right now the engine handles:
+## How this helped me understand event-driven systems
 
-- basic event lifecycles
-- configurable retries and backoff
-- suspensions and expiry
-- MCP integration for agents
-- a small live UI
+A few things clicked for me while building this:
 
-If I keep working on it, I want to explore:
+- **States matter more than functions.** Once I wrote down the event states, many design decisions became obvious.
+- **Centralising the lifecycle removes a lot of guesswork.** Instead of each feature inventing its own retry logic, the engine owns it.
+- **Simple tools are enough.** Goroutines, tickers, and a small broker like NATS cover a lot of background job needs.
+- **A visual UI is worth the time.** Seeing events move made it easier to debug than reading logs.
 
-- more flexible flow definitions
-- better replay and audit tooling
-- richer metrics and dashboards
-- pluggable persistence backends
+## If you want to learn from it
 
-If you work with background jobs and you are tired of one off queues and scripts, this engine might be useful as a reference or a starting point, even if you never use it in production.
+If you are new to event-driven ideas and Go, a simple way to use this project is:
+
+1. Clone the repo
+2. Skim the `PLAN.md` to see the intended architecture
+3. Run `make engine` and open the UI
+4. Trigger a few events and watch how they move
+5. Read the lifecycle and worker code with the UI open
+
+You do not have to use this engine in production to learn from it. The goal was to build a concrete example that shows how jobs can move through a system in a controlled way without a lot of framework magic.
 
 ## Links
 
