@@ -1,0 +1,43 @@
+---
+title: Event-Driven Job Engine in Go
+date: 2026-03-27
+seo:
+  title: Event-Driven Job Engine in Go
+  description: A domain-agnostic event lifecycle engine in Go with MySQL, Redis, NATS, and MCP tools for AI agents.
+  type: article
+  keywords: golang, events, background jobs, mcp, nats, mysql, redis
+---
+
+## Event Lifecycle Engine for Background Work
+
+This project is a small event engine written in Go that treats background work as an event lifecycle instead of ad hoc queue code. It is domain agnostic: you can use it for emails, payouts, notifications, workflows, whatever you need to push through a queue with retries and visibility.
+
+At the core is a state machine that moves events through stages like awaiting processing, dispatched, being processed, succeeded, failed, suspended, and expired. Each event carries configuration about retries, backoff, suspension rules, and what to do when it fails.
+
+The engine exposes its operations as MCP tools so AI agents can work with it directly. It also ships with a tiny HTML UI that shows events flowing through in real time over SSE and WebSocket.
+
+### What it does
+
+- Stores events and configuration in MySQL
+- Keeps payloads in Redis or an in-memory map for development
+- Uses NATS as the message broker to fan events out to adapters
+- Runs scheduled jobs in Go goroutines for:
+  - pulling pending events per flow
+  - processing scheduled events
+  - expiring suspended events
+  - tracking queue size metrics
+- Exposes MCP tools for publishing events, acquiring permits, reporting success or failure, and suspending or unsuspending flows
+
+### Architecture at a glance
+
+- **MCP server** in Go that defines tools and resources for the event engine
+- **Event lifecycle service** that knows how to move events safely between states
+- **Repositories** for events, payloads, and configuration (MySQL + cache + Redis)
+- **Dispatcher** that sends events to NATS subjects with per message TTL
+- **HTML frontend** that connects via SSE/WebSocket and shows the queue in real time
+
+The code is intentionally straightforward: manual constructor injection, `chi` for HTTP, goroutines for scheduling, and `prometheus/client_golang` for metrics. No heavy frameworks or magic.
+
+### Links
+
+- [GitHub Repository](https://github.com/xceejay/event-driven-golang)
