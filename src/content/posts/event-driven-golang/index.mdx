@@ -63,18 +63,18 @@ Then open the UI:
 open http://localhost:8080
 ```
 
-You will see a small web page that lists events, their current state, and how they change over time.
+You will see a small web page that lists events and their current state. It looks like this:
 
 ![Event engine UI](./meta.jpg)
 
-The UI connects to the server with server-sent events and WebSocket. It shows you:
+When the engine is running against a real database and broker, the UI connects over server-sent events and WebSocket and shows you:
 
 - when a new event is created
 - when it is picked up for work
 - when it succeeds or fails
 - when it is retried or expires
 
-This turns “event-driven architecture” from a diagram into something you can watch.
+That turns “event-driven architecture” from a diagram into something you can watch.
 
 ## The main pieces in plain language
 
